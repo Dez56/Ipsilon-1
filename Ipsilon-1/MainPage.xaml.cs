@@ -2,23 +2,23 @@
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private async void OnCounterClicked(object sender, EventArgs e)
         {
-            count++;
+            var Cliente = new HttpClient();
+            var url = DeviceInfo.Platform == DevicePlatform.Android
+                ? "http://10.0.2.2:5015"
+                : "http://localhost:5015";
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+            var resp = await Cliente.GetAsync($"{url}/WeatherForecast");
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            var dato = await resp.Content.ReadAsStringAsync();
+
+            helo.Text = dato;
         }
     }
 
