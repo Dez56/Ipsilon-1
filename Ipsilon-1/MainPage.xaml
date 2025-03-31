@@ -25,7 +25,14 @@
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Fill" />
 
-            <Label
+            <Button
+                x:Name="NavigateBtn"
+                Text="Https" 
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="OnNavigateButtonClicked"
+                HorizontalOptions="Fill" />
+
+           <Label
                 x:Name="helo"
                 Text="Picate el culo perrra apretada"
                 Style="{StaticResource SubHeadline}"

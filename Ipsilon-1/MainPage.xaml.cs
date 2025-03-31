@@ -1,4 +1,7 @@
-﻿namespace Ipsilon_1
+﻿using Ipsilon_1A.Views;
+
+
+namespace Ipsilon_1
 {
     public partial class MainPage : ContentPage
     {
@@ -19,6 +22,11 @@
             var dato = await resp.Content.ReadAsStringAsync();
 
             helo.Text = dato;
+        }
+
+        private async void OnNavigateButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new LoginPage());
         }
     }
 
