@@ -11,7 +11,7 @@ using Ipsilon_1A.Models;
 namespace Ipsilon_1A.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class UsuariosController : ControllerBase
     {
         private readonly ApplicationDbContext _context;

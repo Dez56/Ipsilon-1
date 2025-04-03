@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Ipsilon_1A.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _configuration;

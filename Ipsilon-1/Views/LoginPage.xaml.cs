@@ -24,7 +24,11 @@ namespace Ipsilon_1A.Views
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             using var client = new HttpClient();
-            var response = await client.PostAsync("https://yourapiurl/api/auth/login", content);
+            var url = DeviceInfo.Platform == DevicePlatform.Android
+                ? "http://10.0.2.2:5015"
+                : "http://localhost:5015";
+
+            var response = await client.PostAsync(($"{url}/auth/login"), content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -46,6 +50,6 @@ namespace Ipsilon_1A.Views
 
     public class TokenResponse
     {
-        public string Token { get; set; }
+        public required string Token { get; set; }
     }
 }

@@ -27,14 +27,14 @@
 
             <Button
                 x:Name="NavigateBtn"
-                Text="Https" 
+                Text="Loggearse" 
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="OnNavigateButtonClicked"
                 HorizontalOptions="Fill" />
 
            <Label
                 x:Name="helo"
-                Text="Picate el culo perrra apretada"
+                Text=""
                 Style="{StaticResource SubHeadline}"
                 SemanticProperties.HeadingLevel="Level2"
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
