@@ -42,6 +42,22 @@ namespace Ipsilon_1A.Controllers
             return usuario;
         }
 
+
+        // GET: api/Usuarios/ByName
+        [HttpGet("ByName")]
+        public async Task<ActionResult<Usuario>> GetUsuarioByName(string nombre, string contrasena)
+        {
+            var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Nombre == nombre && u.Contrasena == contrasena);
+
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            return usuario;
+        }
+
+
         // POST: api/Usuarios
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)

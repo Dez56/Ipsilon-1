@@ -26,13 +26,13 @@
                 HorizontalOptions="Fill" />
 
             <Button
-                x:Name="NavigateBtn"
-                Text="Loggearse" 
+                x:Name="Navigate2"
+                Text="Get" 
                 SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnNavigateButtonClicked"
+                Clicked="OnNavigate2Clicked"
                 HorizontalOptions="Fill" />
 
-           <Label
+            <Label
                 x:Name="helo"
                 Text=""
                 Style="{StaticResource SubHeadline}"

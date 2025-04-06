@@ -1,4 +1,4 @@
-﻿using Ipsilon_1A.Views;
+﻿using Ipsilon_1.Views;
 
 
 namespace Ipsilon_1
@@ -24,9 +24,9 @@ namespace Ipsilon_1
             helo.Text = dato;
         }
 
-        private async void OnNavigateButtonClicked(object sender, EventArgs e)
+        private async void OnNavigate2Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new LoginPage());
+            await Navigation.PushAsync(new NewPage1());
         }
     }
 

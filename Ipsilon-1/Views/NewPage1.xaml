@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Ipsilon_1.Views.NewPage1"
+             Title="NewPage1">
+    <VerticalStackLayout>
+        <Label 
+            Text="Metodo Get"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Entry x:Name="NombreEntry" Placeholder="Username" />
+        <Entry x:Name="ContrasenaEntry" Placeholder="Password" IsPassword="True" />
+
+        <Button
+            Text="consultar" 
+            SemanticProperties.Hint="Counts the number of times you click"
+            Clicked="OnNavigateButtonClicked"
+            HorizontalOptions="Fill"/>
+        <Label 
+            x:Name="helo"
+            Text=""
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>
