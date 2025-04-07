@@ -3,35 +3,70 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Ipsilon_1.Views.movint.Consultas"
              Title="Consultas">
-    <VerticalStackLayout >
-        <Button 
-            x:Name="Navigate2"
-            Text="Get" 
-            Clicked="Load"
-            HorizontalOptions="Center"/>
-        <Label 
-        Text="Usuarios"
-        VerticalOptions="Start" 
-        HorizontalOptions="Center" />
-        <CollectionView x:Name="DataCollectionView">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Text="{Binding Id}" />
-                        <Label Grid.Column="1" Text="{Binding Nombre}" />
-                        <Label Grid.Column="2" Text="{Binding Contrasena}" />
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+    <VerticalStackLayout>
+
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+            <Button 
+                x:Name="nigga1"
+                Text="Usuarios" 
+                Clicked="nigga1click"
+                HorizontalOptions="Center"/>
+            <Button 
+                x:Name="nigga2"
+                Text="Paquetes" 
+                Clicked="nigga2click"
+                HorizontalOptions="Center"/>
+        </HorizontalStackLayout>
+
+        <StackLayout x:Name="uno" IsVisible="False">
+            <Label 
+                Text="Paquetes"
+                VerticalOptions="Start" 
+                HorizontalOptions="Center" />
+            <CollectionView x:Name="DataCollectionView">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Text="{Binding Id}" />
+                            <Label Grid.Column="1" Text="{Binding Nombre}" />
+                            <Label Grid.Column="2" Text="{Binding Contrasena}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+
+        <!--    2da tabla   -->
+
+        <StackLayout x:Name="tua" IsVisible="False">
+            <Label 
+            Text="Usuarios"
+            VerticalOptions="Start" 
+            HorizontalOptions="Center" />
+            <CollectionView x:Name="sasas">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Text="{Binding Id}" />
+                            <Label Grid.Column="1" Text="{Binding Repártidor}" />
+                            <Label Grid.Column="2" Text="{Binding Codigo}" />
+                            <Label Grid.Column="3" Text="{Binding Estado}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
     </VerticalStackLayout>
-    
-    <!--    2da tabla   -->
-    
 
 </ContentPage>
