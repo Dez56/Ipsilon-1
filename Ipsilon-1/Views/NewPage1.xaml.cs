@@ -27,11 +27,12 @@ public partial class NewPage1 : ContentPage
             }
             else
             {
-                await Navigation.PushAsync(new NewPage2(nombre));
+                await Navigation.PushAsync(new HubPlatform());
             }
         }
         else
         {
+            await Navigation.PushAsync(new HubPlatform());
             helo.Text = "Usuario no encontrado o contraseña incorrecta";
         }
     }

@@ -3,8 +3,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
+using Ipsilon_1A.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<Ipsilon_1AContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Ipsilon_1AContext") ?? throw new InvalidOperationException("Connection string 'Ipsilon_1AContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -49,7 +53,13 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-//app.UseHttpsRedirection();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+};
+
+app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
