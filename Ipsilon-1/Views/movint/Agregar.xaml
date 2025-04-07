@@ -4,9 +4,73 @@
              x:Class="Ipsilon_1.Views.movint.Agregar"
              Title="Agregar">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+            <Button 
+                x:Name="nigga1"
+                Text="Usuarios" 
+                Clicked="nigga3click"
+                HorizontalOptions="Center"/>
+            <Button 
+                x:Name="nigga2"
+                Text="Paquetes" 
+                Clicked="nigga4click"
+                HorizontalOptions="Center"/>
+        </HorizontalStackLayout>
+
+        <StackLayout x:Name="firstad" IsVisible="False">
+            <Label Text="Agregar Nuevo Usuario" 
+                FontSize="Large" 
+                HorizontalOptions="Center" />
+
+            <Entry x:Name="NombreEntry" 
+                Placeholder="Nombre" 
+                Margin="0,10" />
+
+            <Entry x:Name="ContrasenaEntry" 
+                Placeholder="Contraseña" 
+                IsPassword="True" 
+                Margin="0,10" />
+
+            <Button Text="Agregar Usuario" 
+                Clicked="OnAgregarUsuarioClicked" 
+                HorizontalOptions="Center" 
+                Margin="0,20" />
+
+            <Label x:Name="ResultadoLabel" 
+                Text="" 
+                TextColor="Green" 
+                HorizontalOptions="Center" />
+       </StackLayout>
+
+        <!--    2da tabla   -->
+
+        <StackLayout x:Name="Secadow" IsVisible="False">
+            <Label Text="Agregar Nuevo Paquete" 
+                FontSize="Large" 
+                HorizontalOptions="Center" />
+
+            <Entry x:Name="repar" 
+                Placeholder="id de repartidor" 
+                Margin="0,10" />
+
+            <Entry x:Name="codig" 
+                Placeholder="codigo de paquete" 
+                Margin="0,10" />
+
+            <Entry x:Name="stat" 
+                Placeholder="estado" 
+                Margin="0,10" />
+
+            <Button Text="Agregar Paquete" 
+                Clicked="OnAgregarPaquetesClicked" 
+                HorizontalOptions="Center" 
+                Margin="0,20" />
+
+            <Label x:Name="Resultado" 
+                Text="" 
+                TextColor="Green" 
+                HorizontalOptions="Center" />
+        </StackLayout>
     </VerticalStackLayout>
 </ContentPage>

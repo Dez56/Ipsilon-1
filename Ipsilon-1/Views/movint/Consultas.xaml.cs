@@ -33,7 +33,7 @@ public partial class Consultas : ContentPage
 
     private async Task Load()
     {
-        string url = "http://localhost:5015/Usuarios"; 
+        string url = "https://localhost:7169/Usuarios"; 
         using (HttpClient client = new HttpClient())
         {
             var response = await client.GetStringAsync(url);
@@ -46,7 +46,7 @@ public partial class Consultas : ContentPage
 
     private async Task leed()
     {
-        string url = "http://localhost:5015/Paquetes";
+        string url = "https://localhost:7169/Paquetes";
         using (HttpClient client = new HttpClient())
         {
             var response = await client.GetStringAsync(url);

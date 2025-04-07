@@ -37,6 +37,17 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+//ip externa
+
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(7169, listenOptions =>
+    {
+        listenOptions.UseHttps(); 
+    });
+});
+
+
 // Configure Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

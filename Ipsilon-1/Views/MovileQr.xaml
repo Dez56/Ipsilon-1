@@ -2,15 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Ipsilon_1.MovileQr"
-             Title="MovileQr">
-    <VerticalStackLayout>
-        <Label 
-            Text="Vista Movil"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             Title="MovileQr"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls">
 
-        <Label 
-            x:Name="sesa"
-            Text=""/>
+    <VerticalStackLayout>
+        <zxing:CameraBarcodeReaderView x:Name="BarcodeReader"
+                                       BarcodesDetected="OnBarcodeDetected" 
+                                       IsTorchOn="False"/>
+        
     </VerticalStackLayout>
-</ContentPage>
+ </ContentPage>

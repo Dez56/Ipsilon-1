@@ -12,10 +12,15 @@ namespace Ipsilon_1
 
         private async void OnCounterClicked(object sender, EventArgs e)
         {
-            var Cliente = new HttpClient();
+            var handler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+            };
+
+            var Cliente = new HttpClient(handler);
             var url = DeviceInfo.Platform == DevicePlatform.Android
-                ? "http://10.0.2.2:5015"
-                : "http://localhost:5015";
+                ? "https://10.0.2.2:7169"
+                : "https://localhost:7169";
 
             var resp = await Cliente.GetAsync($"{url}/WeatherForecast");
 
