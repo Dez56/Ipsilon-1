@@ -61,7 +61,7 @@
                 <Button x:Name="BuscaPapus" 
                     Text="Agregar"
                     Clicked="BuscaUsers"
-                />
+                    IsVisible="False"/>
             </HorizontalStackLayout>
 
             <!-- Encabezado de tabla -->
@@ -70,10 +70,14 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Text="Id" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
                 <Label Grid.Column="1" Text="Nombre" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
                 <Label Grid.Column="2" Text="Contraseña" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
+                <Label Grid.Column="3" Text="Editar" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
+                <Label Grid.Column="4" Text="Eliminar" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
             </Grid>
 
             <!-- Datos de la tabla -->
@@ -87,12 +91,21 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="2" />
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="2" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Text="{Binding Id}" Style="{StaticResource DataAdd}"/>
                             <BoxView Grid.Column="1" WidthRequest="2" BackgroundColor="Black" />
                             <Label Grid.Column="2" Text="{Binding Nombre}" Style="{StaticResource DataAdd}"/>
                             <BoxView Grid.Column="3" WidthRequest="2" BackgroundColor="Black" />
                             <Label Grid.Column="4" Text="{Binding Contrasena}" Style="{StaticResource DataAdd}"/>
+                            <BoxView Grid.Column="5" WidthRequest="2" BackgroundColor="Black" />
+                            <ImageButton Grid.Column="6" Source="edit.png" WidthRequest="2" Clicked="OnEditarUsuarioClicked" CommandParameter="{Binding}" />
+                            <BoxView Grid.Column="7" WidthRequest="2" BackgroundColor="Black" />
+                            <ImageButton Grid.Column="8" Source="trash.png" WidthRequest="6"  Clicked="OnEliminarUsuarioClicked" CommandParameter="{Binding}" />
+
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -113,7 +126,8 @@
                     Clicked="RevealPaqueAdd"/>
                 <Button x:Name="BuscaPapus2" 
                     Text="Agregar"
-                    Clicked="BuscaPaque"/>
+                    Clicked="BuscaPaque"
+                    IsVisible="False"/>
             </HorizontalStackLayout>
 
             <!-- Encabezado de tabla -->
@@ -123,11 +137,16 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Text="Id" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
                 <Label Grid.Column="1" Text="Repartidor" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
                 <Label Grid.Column="2" Text="Codigo de paquete" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
                 <Label Grid.Column="3" Text="Estado de entrega" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
+                <Label Grid.Column="4" Text="Contraseña" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
+                <Label Grid.Column="5" Text="Editar" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
+                <Label Grid.Column="6" Text="Eliminar" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
             </Grid>
 
             <CollectionView x:Name="sasas">
@@ -142,6 +161,10 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="2" />
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="2" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Text="{Binding Id}" Style="{StaticResource DataAdd}"/>
                             <BoxView Grid.Column="1" WidthRequest="2" BackgroundColor="Black" />
@@ -149,7 +172,12 @@
                             <BoxView Grid.Column="3" WidthRequest="2" BackgroundColor="Black" />
                             <Label Grid.Column="4" Text="{Binding Codigo}" Style="{StaticResource DataAdd}"/>
                             <BoxView Grid.Column="5" WidthRequest="2" BackgroundColor="Black" />
-                            <Label Grid.Column="6" Text="{Binding Estado}" Style="{StaticResource DataAdd}"/>
+                            <Label Grid.Column="6" Text="{Binding EstadoDescripcion}" Style="{StaticResource DataAdd}"/>
+                            <BoxView Grid.Column="7" WidthRequest="2" BackgroundColor="Black" />
+                            <ImageButton Grid.Column="8" Source="edit.png" WidthRequest="2" Clicked="OnEditarPaqueClicked" CommandParameter="{Binding}" />
+                            <BoxView Grid.Column="9" WidthRequest="2" BackgroundColor="Black" />
+                            <ImageButton Grid.Column="10" Source="trash.png" WidthRequest="2"  Clicked="OnEliminarPaqueClicked" CommandParameter="{Binding}" />
+
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

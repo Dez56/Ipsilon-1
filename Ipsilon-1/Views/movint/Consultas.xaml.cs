@@ -147,6 +147,112 @@ public partial class Consultas : ContentPage
             return response.IsSuccessStatusCode;
         }
     }
+
+    //Metodos de edicion de tablas
+
+    //Usuarios edit
+
+    private async void OnEditarUsuarioClicked(object sender, EventArgs e)
+    {
+        var button = sender as ImageButton;
+        var usuario = button?.CommandParameter as Usuario;
+
+        if (usuario != null)
+        {
+            // Mostrar un formulario para editar al usuario
+            await DisplayAlert("Editar Usuario", $"Editarás al usuario: {usuario.Nombre}", "OK");
+
+            // Aquí puedes implementar la lógica para mostrar un formulario de edición
+            // y actualizar los datos del usuario.
+        }
+    }
+
+    //Paquetes edit
+
+    private async void OnEditarPaqueClicked(object sender, EventArgs e)
+    {
+        var button = sender as ImageButton;
+        var usuario = button?.CommandParameter as Usuario;
+
+        if (usuario != null)
+        {
+            // Mostrar un formulario para editar al usuario
+            await DisplayAlert("Editar Usuario", $"Editarás al usuario: {usuario.Nombre}", "OK");
+
+            // Aquí puedes implementar la lógica para mostrar un formulario de edición
+            // y actualizar los datos del usuario.
+        }
+    }
+
+    //Metodos de Eliminacion de registros
+
+    //Elimniar usuarios
+    private async void OnEliminarUsuarioClicked(object sender, EventArgs e)
+    {
+        var button = sender as ImageButton;
+        var usuario = button?.CommandParameter as Usuario;
+
+        if (usuario != null)
+        {
+            var confirm = await DisplayAlert("Confirmar Eliminación", $"Seguro de que quieres eliminar a {usuario.Nombre}?", "Sí", "No");
+
+            if (confirm)
+            {
+                // Llamar a la API para eliminar al usuario
+                string url = $"https://localhost:7169/Usuarios/{usuario.Id}";
+                using (HttpClient client = new HttpClient())
+                {
+                    var response = await client.DeleteAsync(url);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        await DisplayAlert("Usuario Eliminado", $"El usuario {usuario.Nombre} ha sido eliminado.", "OK");
+
+                        // Recargar la tabla de usuarios
+                        await Load();
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error", "No se pudo eliminar al usuario.", "OK");
+                    }
+                }
+            }
+        }
+    }
+
+    //Eliminar paquetes
+    private async void OnEliminarPaqueClicked(object sender, EventArgs e)
+    {
+        var button = sender as ImageButton;
+        var paque = button?.CommandParameter as Paquete;
+
+        if (paque != null)
+        {
+            var confirm = await DisplayAlert("Confirmar Eliminación", $"Seguro de que quieres eliminar a {paque.Codigo}?", "Sí", "No");
+
+            if (confirm)
+            {
+                // Llamar a la API para eliminar al usuario
+                string url = $"https://localhost:7169/Paquetes/{paque.Id}";
+                using (HttpClient client = new HttpClient())
+                {
+                    var response = await client.DeleteAsync(url);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        await DisplayAlert("Usuario Eliminado", $"El usuario {paque.Codigo} ha sido eliminado.", "OK");
+
+                        // Recargar la tabla de usuarios
+                        await Load();
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error", "No se pudo eliminar al usuario.", "OK");
+                    }
+                }
+            }
+        }
+    }
 }
 
 /*Modelos para el envio de formularios, esto es algo un poco muy
@@ -166,5 +272,20 @@ public class Paquete
     public int Repártidor { get; set; }  //esta linea en todas sus formas en algun momento se va a joder toda la aplicacion, anota eso Jimmy
     public required string? NombreRepartidor { get; set; }
     public required string Codigo { get; set; }
-    public int Estado { get; set; } // "0 = En proceso de entrega", "1 = Entregado", "Cancelado"
+    public int Estado { get; set; } 
+
+    public string EstadoDescripcion
+    {
+        get
+        {
+            return Estado switch
+            {
+                0 => "En proceso de entrega",
+                1 => "Entregado",
+                2 => "Cancelado",
+                3 => "No entregado",
+                _ => throw new NotImplementedException()
+            };
+        }
+    }
 }
