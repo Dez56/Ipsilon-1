@@ -18,32 +18,61 @@ public partial class Consultas : ContentPage
 
     /* Botones reveladores de forms */
 
-    private void HideALLGs()
+    private void HideALLGs(string SelecLay)
     {
-        uno.IsVisible = false;
-        tua.IsVisible = false;
-        AgregarGrupoUser.IsVisible = false;
+        var layouts = new[] { "uno", "tua", "AgregarGrupoUser" };
+
+        foreach (var layoutName in layouts)
+        {
+            var layout = this.FindByName<Layout>(layoutName);
+            if (layout != null)
+            {
+                layout.IsVisible = layoutName == SelecLay;
+            }
+        }
     }
 
     private async void nigga1click (object sender, EventArgs e)
     {
-        HideALLGs();
+        HideALLGs("uno");
         uno.IsVisible = true;
         await Load();
     }
 
     private async void nigga2click (object sender, EventArgs e)
     {
-        HideALLGs();
+        HideALLGs("tua");
         tua.IsVisible = true;
         await leed();
     }
 
-    private void RevealUserAdd(object sender, EventArgs e)
+    private  void RevealUserAdd(object sender, EventArgs e)
     {
-        HideALLGs();
-        AgregarGrupoUser.IsVisible = true;
+        HideALLGs("AgregarGrupoUser");
+    }
 
+    private void BuscaUsers(object sender, EventArgs e)
+    {
+        if (true)
+        {
+            return;
+        }
+    }
+
+    private void RevealPaqueAdd(object sender, EventArgs e)
+    {
+        if (true)
+        {
+            return;
+        }
+    }
+
+    private void BuscaPaque(object sender, EventArgs e)
+    {
+        if (true)
+        {
+            return;
+        }
     }
 
     /*Los siguientes metodos son consultas a las bases de datos, que llenan el modelo
@@ -64,14 +93,24 @@ public partial class Consultas : ContentPage
 
     private async Task leed()
     {
-        string url = "https://localhost:7169/Paquetes";
+        string urlPaquetes = "https://localhost:7169/Paquetes";
+        string urlRepartidores = "https://localhost:7169/Usuarios";
+
         using (HttpClient client = new HttpClient())
         {
-            var response = await client.GetStringAsync(url);
+            var responsePaquetes = await client.GetStringAsync(urlPaquetes);
+            var paquetes = JsonConvert.DeserializeObject<List<Paquete>>(responsePaquetes);
 
-            var data = JsonConvert.DeserializeObject<List<Paquete>>(response);
-            sasas.ItemsSource = data;
+            var responseRepartidores = await client.GetStringAsync(urlRepartidores);
+            var repartidores = JsonConvert.DeserializeObject<List<Usuario>>(responseRepartidores);
 
+            foreach (var paquete in paquetes)
+            {
+                var repartidor = repartidores.FirstOrDefault(r => r.Id == paquete.Repártidor);
+                paquete.NombreRepartidor = repartidor?.Nombre ?? "Desconocido";
+            }
+
+            sasas.ItemsSource = paquetes;
         }
     }
 
@@ -90,7 +129,9 @@ public partial class Consultas : ContentPage
         };
 
         var resultado = await AgregarUsuarioAsync(usuario);
-        ResultadoLabel.Text = resultado ? "Usuario agregado exitosamente" : "Error al agregar usuario";
+        await DisplayAlert("Se ha agregado un usuario", "Usuario agregado exitosamente", "OK");
+        NombreEntry.Text = string.Empty;
+        ContrasenaEntry.Text = string.Empty;
     }
 
         //Usuario util task
@@ -114,6 +155,7 @@ para el API, el plan es que esto este en el mismo archivo*/
 
 public class Usuario
 {
+    public int Id { get; set; }
     public required string Nombre { get; set; }
     public required string Contrasena { get; set; }
 }
@@ -122,6 +164,7 @@ public class Paquete
 {
     public int Id { get; set; }
     public int Repártidor { get; set; }  //esta linea en todas sus formas en algun momento se va a joder toda la aplicacion, anota eso Jimmy
+    public required string? NombreRepartidor { get; set; }
     public required string Codigo { get; set; }
     public int Estado { get; set; } // "0 = En proceso de entrega", "1 = Entregado", "Cancelado"
 }

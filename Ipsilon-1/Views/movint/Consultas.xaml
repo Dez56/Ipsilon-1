@@ -3,6 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Ipsilon_1.Views.movint.Consultas"
              Title="Consultas">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Estilo para los encabezados -->
+            <Style x:Key="HeaderAdd" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BackgroundColor" Value="#333333" />
+                <Setter Property="Padding" Value="5" />
+            </Style>
+
+            <!-- Estilo para los datos -->
+            <Style x:Key="DataAdd" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BackgroundColor" Value="#444444" />
+                <Setter Property="Padding" Value="5" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <!--__________________________Parte util_______________________________________-->
+
     <VerticalStackLayout>
         
         <!--    Botones de Navegación   -->
@@ -30,34 +53,46 @@
                 VerticalOptions="Start" 
                 HorizontalOptions="Center" />
 
-            <HorizontalStackLayout>
-                <Button 
-                    x:Name="RevealUserAdd"
-                    Text="Agregar" 
-                    Clicked="RevealUserAdd"
-                    HorizontalOptions="Center"/>
-            </HorizontalStackLayout>
-            
-            <!--    Encabezado de tabla   -->
-
-            <HorizontalStackLayout>
-                <Label Text="Id" />
-                <Label Text="Nombre" />
-                <Label Text="Contraseña" />
+            <HorizontalStackLayout Spacing="20">
+                <Button x:Name="RevelaPapus" 
+                        Text="Agregar"
+                        Clicked="RevealUserAdd"
+                        />
+                <Button x:Name="BuscaPapus" 
+                    Text="Agregar"
+                    Clicked="BuscaUsers"
+                />
             </HorizontalStackLayout>
 
+            <!-- Encabezado de tabla -->
+            <Grid Padding="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Text="Id" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
+                <Label Grid.Column="1" Text="Nombre" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
+                <Label Grid.Column="2" Text="Contraseña" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
+            </Grid>
+
+            <!-- Datos de la tabla -->
             <CollectionView x:Name="DataCollectionView">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2" />
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Text="{Binding Id}" />
-                            <Label Grid.Column="1" Text="{Binding Nombre}" />
-                            <Label Grid.Column="2" Text="{Binding Contrasena}" />
+                            <Label Grid.Column="0" Text="{Binding Id}" Style="{StaticResource DataAdd}"/>
+                            <BoxView Grid.Column="1" WidthRequest="2" BackgroundColor="Black" />
+                            <Label Grid.Column="2" Text="{Binding Nombre}" Style="{StaticResource DataAdd}"/>
+                            <BoxView Grid.Column="3" WidthRequest="2" BackgroundColor="Black" />
+                            <Label Grid.Column="4" Text="{Binding Contrasena}" Style="{StaticResource DataAdd}"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -68,23 +103,53 @@
 
         <StackLayout x:Name="tua" IsVisible="False">
             <Label 
-            Text="Usuarios"
-            VerticalOptions="Start" 
-            HorizontalOptions="Center" />
+                Text="Paquetes"
+                VerticalOptions="Start" 
+                HorizontalOptions="Center" />
+
+            <HorizontalStackLayout Spacing="20">
+                <Button x:Name="RevelaPapus2" 
+                    Text="Agregar"
+                    Clicked="RevealPaqueAdd"/>
+                <Button x:Name="BuscaPapus2" 
+                    Text="Agregar"
+                    Clicked="BuscaPaque"/>
+            </HorizontalStackLayout>
+
+            <!-- Encabezado de tabla -->
+            <Grid Padding="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Text="Id" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
+                <Label Grid.Column="1" Text="Repartidor" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
+                <Label Grid.Column="2" Text="Codigo de paquete" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
+                <Label Grid.Column="3" Text="Estado de entrega" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
+            </Grid>
+
             <CollectionView x:Name="sasas">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2" />
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2" />
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Text="{Binding Id}" />
-                            <Label Grid.Column="1" Text="{Binding Repártidor}" />
-                            <Label Grid.Column="2" Text="{Binding Codigo}" />
-                            <Label Grid.Column="3" Text="{Binding Estado}" />
+                            <Label Grid.Column="0" Text="{Binding Id}" Style="{StaticResource DataAdd}"/>
+                            <BoxView Grid.Column="1" WidthRequest="2" BackgroundColor="Black" />
+                            <Label Grid.Column="2" Text="{Binding NombreRepartidor}" Style="{StaticResource DataAdd}"/>
+                            <BoxView Grid.Column="3" WidthRequest="2" BackgroundColor="Black" />
+                            <Label Grid.Column="4" Text="{Binding Codigo}" Style="{StaticResource DataAdd}"/>
+                            <BoxView Grid.Column="5" WidthRequest="2" BackgroundColor="Black" />
+                            <Label Grid.Column="6" Text="{Binding Estado}" Style="{StaticResource DataAdd}"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -113,11 +178,6 @@
                     Clicked="OnAgregarUsuarioClicked" 
                     HorizontalOptions="Center" 
                     Margin="0,20" />
-
-            <Label x:Name="ResultadoLabel" 
-                   Text="" 
-                   TextColor="Green" 
-                   HorizontalOptions="Center" />
         </StackLayout> 
 
         <!---   Formulario paquetes   -->
