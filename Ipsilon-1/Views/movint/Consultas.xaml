@@ -144,7 +144,7 @@
                 <Label Grid.Column="1" Text="Repartidor" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
                 <Label Grid.Column="2" Text="Codigo de paquete" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
                 <Label Grid.Column="3" Text="Estado de entrega" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
-                <Label Grid.Column="4" Text="Contraseña" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
+                <Label Grid.Column="4" Text="Editar" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
                 <Label Grid.Column="5" Text="Editar" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
                 <Label Grid.Column="6" Text="Eliminar" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
             </Grid>
@@ -209,6 +209,53 @@
         </StackLayout> 
 
         <!---   Formulario paquetes   -->
+
+        <StackLayout x:Name="AgregarGrupoPaq" IsVisible="False">
+            <Label Text="Agregar Nuevo Paquete" 
+        FontSize="Large" 
+        HorizontalOptions="Center" />
+
+            <Entry x:Name="repar" 
+        Placeholder="id de repartidor" 
+        Margin="0,10" />
+
+            <Entry x:Name="codig" 
+        Placeholder="codigo de paquete" 
+        Margin="0,10" />
+
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                <RadioButton
+                    x:Name="RA0"
+                    Content="En proceso" 
+                    Value="0" 
+                    GroupName="AgreRadio1" />
+                <RadioButton
+                    x:Name="RA1"
+                    Content="Entregado" 
+                    Value="1" 
+                    GroupName="AgreRadio1" />
+                <RadioButton
+                    x:Name="RA2"
+                    Content="Cancelado" 
+                    Value="2" 
+                    GroupName="AgreRadio1" />
+                <RadioButton
+                    x:Name="RA3"
+                    Content="No recibió" 
+                    Value="3" 
+                    GroupName="AgreRadio1" />
+            </HorizontalStackLayout>
+
+            <Button Text="Agregar Paquete" 
+                Clicked="OnAgregarPaquetesClicked" 
+                HorizontalOptions="Center" 
+                Margin="0,20" />
+
+            <Label x:Name="Resultado" 
+                Text="" 
+                TextColor="Green" 
+                HorizontalOptions="Center" />
+        </StackLayout>
 
         <!--    Formularios para actualizar registros    -->
 

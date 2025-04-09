@@ -20,7 +20,7 @@ public partial class Consultas : ContentPage
 
     private void HideALLGs(string SelecLay)
     {
-        var layouts = new[] { "uno", "tua", "AgregarGrupoUser" };
+        var layouts = new[] { "uno", "tua", "AgregarGrupoUser", "AgregarGrupoPaq" };
 
         foreach (var layoutName in layouts)
         {
@@ -61,10 +61,8 @@ public partial class Consultas : ContentPage
 
     private void RevealPaqueAdd(object sender, EventArgs e)
     {
-        if (true)
-        {
-            return;
-        }
+        HideALLGs("AgregarGrupoPaq");
+        AgregarGrupoPaq.IsVisible = true;
     }
 
     private void BuscaPaque(object sender, EventArgs e)
@@ -141,6 +139,55 @@ public partial class Consultas : ContentPage
         using (HttpClient client = new HttpClient())
         {
             var json = JsonConvert.SerializeObject(usuario);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync(url, content);
+
+            return response.IsSuccessStatusCode;
+        }
+    }
+
+    //Paquetes Main metod
+
+    private async void OnAgregarPaquetesClicked(object sender, EventArgs e)
+    {
+        var RadiValor = 0;
+
+        if (RA0.IsChecked)
+        {
+            RadiValor = 0;
+        }
+        else if (RA1.IsChecked)
+        {
+            RadiValor = 1;
+        }
+        else if (RA2.IsChecked)
+        {
+            RadiValor = 2;
+        }
+        else if (RA3.IsChecked)
+        {
+            RadiValor = 3;
+        }
+
+        var paquetes = new Paquete
+        {
+            Repártidor = Convert.ToInt32(repar.Text),
+            Codigo = codig.Text,
+            Estado = RadiValor
+        };
+
+        var resultado = await AgregarpaqueteAsync(paquetes);
+        Resultado.Text = resultado ? "Paquete agregado exitosamente" : "Error al agregar usuario";
+    }
+
+    //Paquetes util task
+
+    private async Task<bool> AgregarpaqueteAsync(Paquete Paquete)
+    {
+        string url = "https://localhost:7169/Paquetes";
+        using (HttpClient client = new HttpClient())
+        {
+            var json = JsonConvert.SerializeObject(Paquete);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await client.PostAsync(url, content);
 
@@ -243,7 +290,7 @@ public partial class Consultas : ContentPage
                         await DisplayAlert("Usuario Eliminado", $"El usuario {paque.Codigo} ha sido eliminado.", "OK");
 
                         // Recargar la tabla de usuarios
-                        await Load();
+                        await leed();
                     }
                     else
                     {
@@ -270,7 +317,7 @@ public class Paquete
 {
     public int Id { get; set; }
     public int Repártidor { get; set; }  //esta linea en todas sus formas en algun momento se va a joder toda la aplicacion, anota eso Jimmy
-    public required string? NombreRepartidor { get; set; }
+    public string? NombreRepartidor { get; set; }
     public required string Codigo { get; set; }
     public int Estado { get; set; } 
 
