@@ -14,22 +14,22 @@ public partial class Agregar : ContentPage
 		InitializeComponent();
 	}
 
-    //Revelar forms
+    /*Botones reveladores de forms*/
 
-    private async void nigga3click(object sender, EventArgs e)
+    private void nigga3click(object sender, EventArgs e)
     {
-        firstad.IsVisible = true;
-        Secadow.IsVisible = false;
+        AgregarGrupoUser.IsVisible = true;
+        AgregarGrupoPaq.IsVisible = false;
 
     }
 
-    private async void nigga4click(object sender, EventArgs e)
+    private void nigga4click(object sender, EventArgs e)
     {
-        firstad.IsVisible = false;
-        Secadow.IsVisible = true;
+        AgregarGrupoUser.IsVisible = false;
+        AgregarGrupoPaq.IsVisible = true;
     }
 
-    //agregar
+    /*Botones de accion*/
 
     private async void OnAgregarUsuarioClicked(object sender, EventArgs e)
     {
@@ -45,11 +45,21 @@ public partial class Agregar : ContentPage
 
     private async void OnAgregarPaquetesClicked(object sender, EventArgs e)
     {
+        // Encuentra el RadioButton seleccionado usando LINQ
+        var selectedRadioButton = AgregarGrupoPaq.Children
+            .OfType<RadioButton>()
+            .FirstOrDefault(rb => rb.IsChecked);
+
+        // Obtén el valor del RadioButton seleccionado
+        var selectedValue = selectedRadioButton?.Value;
+
+        // Crea el 
+
         var paquetes = new Paquetez
         {
             Repártidor = Convert.ToInt32(repar.Text),
             Codigo = codig.Text,
-            Estado = Convert.ToInt32(stat.Text)
+            Estado = Convert.ToInt32(selectedValue)
         };
 
         var resultado = await AgregarpaqueteAsync(paquetes);
@@ -57,7 +67,8 @@ public partial class Agregar : ContentPage
     }
 
 
-    //conversor a json y envio a la api
+    /*Apartado de utileria, en este caso conversor de datos a archivos
+     Json*/
 
     private async Task<bool> AgregarUsuarioAsync(Usuario usuario)
     {
@@ -86,11 +97,7 @@ public partial class Agregar : ContentPage
     }
 }
 
-public class Usuario
-{
-    public required string Nombre { get; set; }
-    public required string Contrasena { get; set; }
-}
+
 public class Paquetez
 {
     public int Id { get; set; }

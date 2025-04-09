@@ -23,10 +23,10 @@
         <BoxView HeightRequest="20" />
 
         <Button 
-            Text="Eliminar"
+            Text="Editar"
             VerticalOptions="Center" 
             HorizontalOptions="Center"
-            Clicked="red3" />
+            Clicked="red4" />
 
     </VerticalStackLayout>
 </ContentPage>

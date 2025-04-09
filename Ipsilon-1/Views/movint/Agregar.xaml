@@ -5,6 +5,8 @@
              Title="Agregar">
     <VerticalStackLayout>
 
+        <!--    Botones de revelacion de forms  -->
+        
         <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
             <Button 
                 x:Name="nigga1"
@@ -18,7 +20,9 @@
                 HorizontalOptions="Center"/>
         </HorizontalStackLayout>
 
-        <StackLayout x:Name="firstad" IsVisible="False">
+        <!--    Form para agregar usuarios  -->
+        
+        <StackLayout x:Name="AgregarGrupoUser" IsVisible="False">
             <Label Text="Agregar Nuevo Usuario" 
                 FontSize="Large" 
                 HorizontalOptions="Center" />
@@ -43,9 +47,9 @@
                 HorizontalOptions="Center" />
        </StackLayout>
 
-        <!--    2da tabla   -->
+        <!--    Form para agregar nuevos paquetes   -->
 
-        <StackLayout x:Name="Secadow" IsVisible="False">
+        <StackLayout x:Name="AgregarGrupoPaq" IsVisible="False">
             <Label Text="Agregar Nuevo Paquete" 
                 FontSize="Large" 
                 HorizontalOptions="Center" />
@@ -58,9 +62,28 @@
                 Placeholder="codigo de paquete" 
                 Margin="0,10" />
 
-            <Entry x:Name="stat" 
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                <RadioButton
+                    Content="En proceso" 
+                    Value="0" 
+                    GroupName="AgreRadio1" />
+                <RadioButton
+                    Content="Entregado" 
+                    Value="1" 
+                    GroupName="AgreRadio1" />
+                <RadioButton
+                    Content="Cancelado" 
+                    Value="2" 
+                    GroupName="AgreRadio1" />
+                <RadioButton 
+                    Content="No recibió" 
+                    Value="3" 
+                    GroupName="AgreRadio1" />
+            </HorizontalStackLayout>
+
+            <!--<Entry x:Name="stat" 
                 Placeholder="estado" 
-                Margin="0,10" />
+                Margin="0,10" />-->
 
             <Button Text="Agregar Paquete" 
                 Clicked="OnAgregarPaquetesClicked" 

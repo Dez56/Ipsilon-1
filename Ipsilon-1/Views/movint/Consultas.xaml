@@ -4,6 +4,8 @@
              x:Class="Ipsilon_1.Views.movint.Consultas"
              Title="Consultas">
     <VerticalStackLayout>
+        
+        <!--    Botones de Navegación   -->
 
         <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
             <Button 
@@ -18,11 +20,32 @@
                 HorizontalOptions="Center"/>
         </HorizontalStackLayout>
 
+        <!--    Tablas de impresión de consultas    -->
+        
+        <!--    Tabla para imprimir a los usuarios    -->
+        
         <StackLayout x:Name="uno" IsVisible="False">
             <Label 
                 Text="Paquetes"
                 VerticalOptions="Start" 
                 HorizontalOptions="Center" />
+
+            <HorizontalStackLayout>
+                <Button 
+                    x:Name="RevealUserAdd"
+                    Text="Agregar" 
+                    Clicked="RevealUserAdd"
+                    HorizontalOptions="Center"/>
+            </HorizontalStackLayout>
+            
+            <!--    Encabezado de tabla   -->
+
+            <HorizontalStackLayout>
+                <Label Text="Id" />
+                <Label Text="Nombre" />
+                <Label Text="Contraseña" />
+            </HorizontalStackLayout>
+
             <CollectionView x:Name="DataCollectionView">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -41,7 +64,7 @@
             </CollectionView>
         </StackLayout>
 
-        <!--    2da tabla   -->
+        <!--    Tabla de consulta paquetes   -->
 
         <StackLayout x:Name="tua" IsVisible="False">
             <Label 
@@ -67,6 +90,43 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </StackLayout>
+        
+        <!--    Formularios para agregar nuevos regisreos    -->
+        
+        <!---   Formulario usuario   -->
+
+        <StackLayout x:Name="AgregarGrupoUser" IsVisible="False">
+            <Label Text="Agregar Nuevo Usuario" 
+                   FontSize="Large" 
+                   HorizontalOptions="Center" />
+
+            <Entry x:Name="NombreEntry" 
+                   Placeholder="Nombre" 
+                   Margin="0,10" />
+
+            <Entry x:Name="ContrasenaEntry" 
+                   Placeholder="Contraseña" 
+                   IsPassword="True" 
+                   Margin="0,10" />
+
+            <Button Text="Agregar Usuario" 
+                    Clicked="OnAgregarUsuarioClicked" 
+                    HorizontalOptions="Center" 
+                    Margin="0,20" />
+
+            <Label x:Name="ResultadoLabel" 
+                   Text="" 
+                   TextColor="Green" 
+                   HorizontalOptions="Center" />
+        </StackLayout> 
+
+        <!---   Formulario paquetes   -->
+
+        <!--    Formularios para actualizar registros    -->
+
+        <!---   Formulario usuario   -->
+
+        <!---   Formulario paquetes   -->
     </VerticalStackLayout>
 
 </ContentPage>

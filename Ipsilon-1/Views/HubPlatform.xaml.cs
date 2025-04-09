@@ -19,7 +19,8 @@ public partial class HubPlatform : ContentPage
         // Navegar a la página de red1
         Navigation.PushAsync(new Consultas());
     }
-    private void red3(object sender, EventArgs e)
+    
+    private void red4(object sender, EventArgs e)
     {
         // Navegar a la página de red1
         Navigation.PushAsync(new Editar());
