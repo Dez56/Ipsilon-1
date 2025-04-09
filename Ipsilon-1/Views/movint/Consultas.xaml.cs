@@ -20,7 +20,7 @@ public partial class Consultas : ContentPage
 
     private void HideALLGs(string SelecLay)
     {
-        var layouts = new[] { "uno", "tua", "AgregarGrupoUser", "AgregarGrupoPaq" };
+        var layouts = new[] { "uno", "tua", "AgregarGrupoUser", "AgregarGrupoPaq", "EditarGrupoUser" };
 
         foreach (var layoutName in layouts)
         {
@@ -51,6 +51,7 @@ public partial class Consultas : ContentPage
         HideALLGs("AgregarGrupoUser");
     }
 
+    //En deshuso
     private void BuscaUsers(object sender, EventArgs e)
     {
         if (true)
@@ -65,11 +66,31 @@ public partial class Consultas : ContentPage
         AgregarGrupoPaq.IsVisible = true;
     }
 
+    //En desuso
     private void BuscaPaque(object sender, EventArgs e)
     {
         if (true)
         {
             return;
+        }
+    }
+
+    //Validacion y llamada a form de edicion de usuarios
+    private async void OnSHEUsuarioClicked(object sender, EventArgs e)
+    {
+        var button = sender as ImageButton;
+        var usuario = button?.CommandParameter as Usuario;
+
+        if (usuario != null)
+        {
+            await DisplayAlert("Editar Usuario", $"Editarás al usuario: {usuario.Nombre}", "OK");
+
+            HideALLGs("EditarGrupoUser");
+            EditarGrupoUser.IsVisible = true;
+
+            HidedIDUser.Text = usuario.Id.ToString();
+            EditNombreEntry.Text = usuario.Nombre;
+            EditContrasenaEntry.Text = usuario.Contrasena;
         }
     }
 
@@ -201,33 +222,34 @@ public partial class Consultas : ContentPage
 
     private async void OnEditarUsuarioClicked(object sender, EventArgs e)
     {
-        var button = sender as ImageButton;
-        var usuario = button?.CommandParameter as Usuario;
-
-        if (usuario != null)
+        var usuario = new Usuario
         {
-            // Mostrar un formulario para editar al usuario
-            await DisplayAlert("Editar Usuario", $"Editarás al usuario: {usuario.Nombre}", "OK");
+            Id = Convert.ToInt32(HidedIDUser.Text),
+            Nombre = NombreEntry.Text,
+            Contrasena = ContrasenaEntry.Text
+        };
 
-            // Aquí puedes implementar la lógica para mostrar un formulario de edición
-            // y actualizar los datos del usuario.
+        string url = $"https://localhost:7169/Usuarios/{usuario.Id}"; // Endpoint de la API
+        using (HttpClient client = new HttpClient())
+        {
+            var json = JsonConvert.SerializeObject(usuario);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PutAsync(url, content);
+
+            await DisplayAlert("Terminado", $"EL resultado de la operacion fue{response.IsSuccessStatusCode}", "OK");
         }
+
+        await Load();
     }
 
     //Paquetes edit
 
     private async void OnEditarPaqueClicked(object sender, EventArgs e)
     {
-        var button = sender as ImageButton;
-        var usuario = button?.CommandParameter as Usuario;
-
-        if (usuario != null)
+        if (true)
         {
-            // Mostrar un formulario para editar al usuario
-            await DisplayAlert("Editar Usuario", $"Editarás al usuario: {usuario.Nombre}", "OK");
-
-            // Aquí puedes implementar la lógica para mostrar un formulario de edición
-            // y actualizar los datos del usuario.
+            return;
         }
     }
 

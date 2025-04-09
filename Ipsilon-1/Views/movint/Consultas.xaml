@@ -102,7 +102,7 @@
                             <BoxView Grid.Column="3" WidthRequest="2" BackgroundColor="Black" />
                             <Label Grid.Column="4" Text="{Binding Contrasena}" Style="{StaticResource DataAdd}"/>
                             <BoxView Grid.Column="5" WidthRequest="2" BackgroundColor="Black" />
-                            <ImageButton Grid.Column="6" Source="edit.png" WidthRequest="2" Clicked="OnEditarUsuarioClicked" CommandParameter="{Binding}" />
+                            <ImageButton Grid.Column="6" Source="edit.png" WidthRequest="2" Clicked="OnSHEUsuarioClicked" CommandParameter="{Binding}" />
                             <BoxView Grid.Column="7" WidthRequest="2" BackgroundColor="Black" />
                             <ImageButton Grid.Column="8" Source="trash.png" WidthRequest="6"  Clicked="OnEliminarUsuarioClicked" CommandParameter="{Binding}" />
 
@@ -260,6 +260,35 @@
         <!--    Formularios para actualizar registros    -->
 
         <!---   Formulario usuario   -->
+        <StackLayout x:Name="EditarGrupoUser" IsVisible="False">
+            <Label Text="Agregar Nuevo Usuario" 
+                FontSize="Large" 
+                HorizontalOptions="Center" />
+
+            <Entry x:Name="HidedIDUser" 
+                IsVisible="False"
+                Placeholder="Nombre" 
+                Margin="0,10" />
+
+            <Label Text="Nombre" 
+                FontSize="Large" 
+                HorizontalOptions="Center" />
+            <Entry x:Name="EditNombreEntry" 
+                Placeholder="Nombre" 
+                Margin="0,10" />
+
+            <Label Text="Contraseña" 
+                FontSize="Large" 
+                HorizontalOptions="Center" />
+            <Entry x:Name="EditContrasenaEntry" 
+                Placeholder="Contraseña" 
+                Margin="0,10" />
+
+            <Button Text="Agregar Usuario" 
+                Clicked="OnEditarUsuarioClicked" 
+                HorizontalOptions="Center" 
+                Margin="0,20" />
+        </StackLayout>
 
         <!---   Formulario paquetes   -->
     </VerticalStackLayout>
