@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Ipsilon_1.Views.Movile.DelivMood"
+             Title="DelivMood">
+    <VerticalStackLayout>
+        <HorizontalStackLayout>
+            <Label 
+                Text="Repartidor"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                Margin="0,0,10,0" />
+            <Entry 
+                Text="1"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" 
+                x:Name="T8"
+                IsReadOnly="True"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label 
+                Text="Folio Fiscal"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                Margin="0,0,10,0" />
+            <Entry 
+                Text=""
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" 
+                x:Name="T1"
+                IsReadOnly="True"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label 
+                Text="RFC Emisor"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                Margin="0,0,10,0" />
+            <Entry  
+                Text=""
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                x:Name="T2"
+                IsReadOnly="True"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout>
+            <Label 
+                Text="RFC Receptor"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                Margin="0,0,10,0" />
+            <Entry 
+                Text=""
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                x:Name="T3"
+                IsReadOnly="True"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label 
+                Text="Total"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                Margin="0,0,10,0" />
+            <Entry 
+                Text=""
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                x:Name="T4"
+                IsReadOnly="True"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout>
+            <Label 
+                Text="Sello"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                Margin="0,0,10,0" />
+            <Entry 
+                Text=""
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                x:Name="T5"
+                IsReadOnly="True"/>
+        </HorizontalStackLayout>
+        
+        <HorizontalStackLayout>
+            <Label 
+                Text="Hora Salida"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                Margin="0,0,10,0" />
+            <Entry 
+                Text=""
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                x:Name="T6"
+                IsReadOnly="True"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label 
+                Text="Hora Entrega"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                Margin="0,0,10,0" />
+            <Entry 
+                Text=""
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                x:Name="T7"
+                IsReadOnly="True"/>
+        </HorizontalStackLayout>
+
+        <Button
+    Text="Entregar"
+    VerticalOptions="Center" 
+    HorizontalOptions="Center"
+    Clicked="ONdeliverance"
+    x:Name="BITTON"
+    IsEnabled="True"/>
+        <Label 
+    x:Name="mensajeado"
+    Text=""
+    VerticalOptions="Center" 
+    HorizontalOptions="Center" 
+    TextColor="Green"/>
+
+    </VerticalStackLayout>
+</ContentPage>

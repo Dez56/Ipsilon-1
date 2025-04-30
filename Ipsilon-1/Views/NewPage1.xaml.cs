@@ -27,15 +27,15 @@ public partial class NewPage1 : ContentPage
         var response = await Cliente.GetAsync($"{url}/Usuarios/ByName?nombre={nombre}&contrasena={contrasena}");
 
         if (response.IsSuccessStatusCode)
-        {
+        {*/
             if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS)
             {
                 await Navigation.PushAsync(new MovileQr());
             }
             else
-            {*/
-                await Navigation.PushAsync(new HubPlatform());/*
-            }
+            {
+                await Navigation.PushAsync(new HubPlatform());
+            }/*
         }
         else
         {
