@@ -11,7 +11,7 @@ public partial class NewPage1 : ContentPage
 	{
         //await Navigation.PushAsync(new MovileQr());
 
-        var nombre = NombreEntry.Text;
+        /*var nombre = NombreEntry.Text;
         var contrasena = ContrasenaEntry.Text;
 
         var handler = new HttpClientHandler
@@ -33,14 +33,14 @@ public partial class NewPage1 : ContentPage
                 await Navigation.PushAsync(new MovileQr());
             }
             else
-            {
-                await Navigation.PushAsync(new HubPlatform());
+            {*/
+                await Navigation.PushAsync(new HubPlatform());/*
             }
         }
         else
         {
             await Navigation.PushAsync(new HubPlatform());
             helo.Text = "Usuario no encontrado o contraseña incorrecta";
-        }
+        }*/
     }
 }
