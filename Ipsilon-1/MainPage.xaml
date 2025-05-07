@@ -32,6 +32,13 @@
                 Clicked="OnNavigate2Clicked"
                 HorizontalOptions="Fill" />
 
+            <Button
+                x:Name="huhu"
+                Text="Getshit" 
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="oh_no_abtn"
+                HorizontalOptions="Fill" />
+
             <Label
                 x:Name="helo"
                 Text=""

@@ -137,6 +137,8 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
@@ -144,9 +146,10 @@
                 <Label Grid.Column="1" Text="Repartidor" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
                 <Label Grid.Column="2" Text="Codigo de paquete" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
                 <Label Grid.Column="3" Text="Estado de entrega" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
-                <Label Grid.Column="4" Text="Editar" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
-                <Label Grid.Column="5" Text="Editar" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
-                <Label Grid.Column="6" Text="Eliminar" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
+                <Label Grid.Column="4" Text="Hora de Salida" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
+                <Label Grid.Column="5" Text="Hora de Entrega" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
+                <Label Grid.Column="6" Text="Editar" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
+                <Label Grid.Column="7" Text="Eliminar" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
             </Grid>
 
             <CollectionView x:Name="sasas">
@@ -154,6 +157,8 @@
                     <DataTemplate>
                         <Grid Padding="10">
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="2" />
                                 <ColumnDefinition Width="*" />
@@ -174,10 +179,13 @@
                             <BoxView Grid.Column="5" WidthRequest="2" BackgroundColor="Black" />
                             <Label Grid.Column="6" Text="{Binding EstadoDescripcion}" Style="{StaticResource DataAdd}"/>
                             <BoxView Grid.Column="7" WidthRequest="2" BackgroundColor="Black" />
-                            <ImageButton Grid.Column="8" Source="edit.png" WidthRequest="2" Clicked="OnEditarPaqueClicked" CommandParameter="{Binding}" />
+                            <Label Grid.Column="8" Text="{Binding HorSal, StringFormat='{0:dd/MM/yyyy HH:mm}'}" Style="{StaticResource DataAdd}"/>
                             <BoxView Grid.Column="9" WidthRequest="2" BackgroundColor="Black" />
-                            <ImageButton Grid.Column="10" Source="trash.png" WidthRequest="2"  Clicked="OnEliminarPaqueClicked" CommandParameter="{Binding}" />
-
+                            <Label Grid.Column="10" Text="{Binding HorEnt, StringFormat='{0:dd/MM/yyyy HH:mm}'}" Style="{StaticResource DataAdd}"/>
+                            <BoxView Grid.Column="11" WidthRequest="2" BackgroundColor="Black" />
+                            <ImageButton Grid.Column="12" Source="edit.png" WidthRequest="2" Clicked="OnEditarPaqueClicked" CommandParameter="{Binding}" />
+                            <BoxView Grid.Column="13" WidthRequest="2" BackgroundColor="Black" />
+                            <ImageButton Grid.Column="14" Source="trash.png" WidthRequest="6" Clicked="OnEliminarPaqueClicked" CommandParameter="{Binding}" />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

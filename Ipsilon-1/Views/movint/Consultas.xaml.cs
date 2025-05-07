@@ -118,10 +118,10 @@ public partial class Consultas : ContentPage
         using (HttpClient client = new HttpClient())
         {
             var responsePaquetes = await client.GetStringAsync(urlPaquetes);
-            var paquetes = JsonConvert.DeserializeObject<List<Paquete>>(responsePaquetes);
+            var paquetes = JsonConvert.DeserializeObject<List<Paquete>>(responsePaquetes) ?? new List<Paquete>();
 
             var responseRepartidores = await client.GetStringAsync(urlRepartidores);
-            var repartidores = JsonConvert.DeserializeObject<List<Usuario>>(responseRepartidores);
+            var repartidores = JsonConvert.DeserializeObject<List<Usuario>>(responseRepartidores) ?? new List<Usuario>();
 
             foreach (var paquete in paquetes)
             {
@@ -194,11 +194,13 @@ public partial class Consultas : ContentPage
         {
             Repártidor = Convert.ToInt32(repar.Text),
             Codigo = codig.Text,
-            Estado = RadiValor
+            Estado = RadiValor,
+            HorSal = DateTime.Now, // Hora actual al crear el registro
+            HorEnt = null // Puede ser nulo
         };
 
         var resultado = await AgregarpaqueteAsync(paquetes);
-        Resultado.Text = resultado ? "Paquete agregado exitosamente" : "Error al agregar usuario";
+        Resultado.Text = resultado ? "Paquete agregado exitosamente" : "Error al agregar paquete";
     }
 
     //Paquetes util task
@@ -245,7 +247,7 @@ public partial class Consultas : ContentPage
 
     //Paquetes edit
 
-    private async void OnEditarPaqueClicked(object sender, EventArgs e)
+    private void OnEditarPaqueClicked(object sender, EventArgs e)
     {
         if (true)
         {
@@ -341,7 +343,11 @@ public class Paquete
     public int Repártidor { get; set; }  //esta linea en todas sus formas en algun momento se va a joder toda la aplicacion, anota eso Jimmy
     public string? NombreRepartidor { get; set; }
     public required string Codigo { get; set; }
-    public int Estado { get; set; } 
+    public int Estado { get; set; }
+
+    public DateTime HorSal { get; set; } 
+    public DateTime? HorEnt { get; set; }
+
 
     public string EstadoDescripcion
     {

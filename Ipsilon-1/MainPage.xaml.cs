@@ -1,4 +1,5 @@
 ﻿using Ipsilon_1.Views;
+using Newtonsoft.Json;
 
 
 namespace Ipsilon_1
@@ -32,6 +33,26 @@ namespace Ipsilon_1
         private async void OnNavigate2Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new NewPage1());
+        }
+
+
+        private async void oh_no_abtn(object sender, EventArgs e)
+        {
+            var handler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+            };
+
+            var Cliente = new HttpClient(handler);
+            var url = DeviceInfo.Platform == DevicePlatform.Android
+                ? "https://10.0.2.2:7169"
+                : "https://localhost:7169";
+
+            var resp = await Cliente.GetAsync($"{url}/Usuarios");
+
+            var dato = await resp.Content.ReadAsStringAsync();
+
+            helo.Text = dato;
         }
     }
 
