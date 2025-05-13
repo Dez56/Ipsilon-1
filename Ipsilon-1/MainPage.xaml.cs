@@ -20,7 +20,7 @@ namespace Ipsilon_1
 
             var Cliente = new HttpClient(handler);
             var url = DeviceInfo.Platform == DevicePlatform.Android
-                ? "https://10.0.2.2:7169"
+                ? "https://172.26.80.1:7169"
                 : "https://localhost:7169";
 
             var resp = await Cliente.GetAsync($"{url}/WeatherForecast");

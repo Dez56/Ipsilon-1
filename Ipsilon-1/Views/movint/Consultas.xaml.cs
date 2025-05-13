@@ -125,7 +125,7 @@ public partial class Consultas : ContentPage
 
             foreach (var paquete in paquetes)
             {
-                var repartidor = repartidores.FirstOrDefault(r => r.Id == paquete.Repártidor);
+                var repartidor = repartidores.FirstOrDefault(r => r.Id == paquete.Repartidor);
                 paquete.NombreRepartidor = repartidor?.Nombre ?? "Desconocido";
             }
 
@@ -192,7 +192,7 @@ public partial class Consultas : ContentPage
 
         var paquetes = new Paquete
         {
-            Repártidor = Convert.ToInt32(repar.Text),
+            Repartidor = Convert.ToInt32(repar.Text),
             Codigo = codig.Text,
             Estado = RadiValor,
             HorSal = DateTime.Now, // Hora actual al crear el registro
@@ -227,8 +227,8 @@ public partial class Consultas : ContentPage
         var usuario = new Usuario
         {
             Id = Convert.ToInt32(HidedIDUser.Text),
-            Nombre = NombreEntry.Text,
-            Contrasena = ContrasenaEntry.Text
+            Nombre = EditNombreEntry.Text,
+            Contrasena = EditContrasenaEntry.Text
         };
 
         string url = $"https://localhost:7169/Usuarios/{usuario.Id}"; // Endpoint de la API
@@ -340,27 +340,37 @@ public class Usuario
 public class Paquete
 {
     public int Id { get; set; }
-    public int Repártidor { get; set; }  //esta linea en todas sus formas en algun momento se va a joder toda la aplicacion, anota eso Jimmy
+
+    public int Repartidor { get; set; } 
+
     public string? NombreRepartidor { get; set; }
+
     public required string Codigo { get; set; }
-    public int Estado { get; set; }
 
-    public DateTime HorSal { get; set; } 
-    public DateTime? HorEnt { get; set; }
-
-
-    public string EstadoDescripcion
+    private int _estado;
+    public int Estado
     {
-        get
+        get => _estado;
+        set
         {
-            return Estado switch
+            _estado = value;
+            if (_estado == 1 && HorEnt == null)
             {
-                0 => "En proceso de entrega",
-                1 => "Entregado",
-                2 => "Cancelado",
-                3 => "No entregado",
-                _ => throw new NotImplementedException()
-            };
+                HorEnt = DateTime.Now;
+            }
         }
     }
+
+    public DateTime HorSal { get; set; }
+
+    public DateTime? HorEnt { get; set; }
+
+    public string EstadoDescripcion => Estado switch
+    {
+        0 => "En proceso de entrega",
+        1 => "Entregado",
+        2 => "Cancelado",
+        3 => "No entregado",
+        _ => throw new NotImplementedException()
+    };
 }

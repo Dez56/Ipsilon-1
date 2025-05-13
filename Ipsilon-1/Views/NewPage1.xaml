@@ -2,25 +2,53 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Ipsilon_1.Views.NewPage1"
-             Title="NewPage1">
-    <VerticalStackLayout>
-        <Label 
-            Text="Metodo Get"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             Title="NewPage1"
+             >
 
-        <Entry x:Name="NombreEntry" Placeholder="Username" />
-        <Entry x:Name="ContrasenaEntry" Placeholder="Password" IsPassword="True" />
+    <ScrollView>
+        <VerticalStackLayout
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="CenterAndExpand"
+            Spacing="20"
+            Padding="20">
 
-        <Button
-            Text="consultar" 
-            SemanticProperties.Hint="Counts the number of times you click"
-            Clicked="OnNavigateButtonClicked"
-            HorizontalOptions="Fill"/>
-        <Label 
-            x:Name="helo"
-            Text=""
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+            <Frame 
+                CornerRadius="10" 
+                Padding="20"
+                Margin="20"
+                
+                HasShadow="True"
+                WidthRequest="280"
+                VerticalOptions="Center">
+
+                <VerticalStackLayout Spacing="15">
+                    <Label 
+                        Text="Metodo Get"
+                        FontAttributes="Bold"
+                        FontSize="24"
+                        HorizontalOptions="Center" />
+
+                    <Entry x:Name="NombreEntry" Placeholder="Username" />
+                    <Entry x:Name="ContrasenaEntry" Placeholder="Password" IsPassword="True" />
+
+                    <Button
+                        Text="Consultar"
+    Clicked="OnNavigateButtonClicked"
+    HorizontalOptions="Fill"
+    BackgroundColor="#E5007D"
+    TextColor="White" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Image 
+                Source="logus_niet.png"
+                HeightRequest="150"
+                HorizontalOptions="Center" />
+
+            <Label 
+                x:Name="helo"
+                Text=""
+                HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

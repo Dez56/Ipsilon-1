@@ -134,22 +134,37 @@
             <Grid Padding="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="2" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Text="Id" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
-                <Label Grid.Column="1" Text="Repartidor" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
-                <Label Grid.Column="2" Text="Codigo de paquete" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
-                <Label Grid.Column="3" Text="Estado de entrega" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
-                <Label Grid.Column="4" Text="Hora de Salida" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
-                <Label Grid.Column="5" Text="Hora de Entrega" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
-                <Label Grid.Column="6" Text="Editar" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
-                <Label Grid.Column="7" Text="Eliminar" FontAttributes="Bold" HorizontalTextAlignment="Center" Style="{StaticResource HeaderAdd}"/>
+
+                <Label Grid.Column="0" Text="Id" Style="{StaticResource HeaderAdd}" HorizontalTextAlignment="Center"/>
+                <BoxView Grid.Column="1" BackgroundColor="Black" />
+                <Label Grid.Column="2" Text="Repartidor" Style="{StaticResource HeaderAdd}" HorizontalTextAlignment="Center"/>
+                <BoxView Grid.Column="3" BackgroundColor="Black" />
+                <Label Grid.Column="4" Text="Codigo de paquete" Style="{StaticResource HeaderAdd}" HorizontalTextAlignment="Center"/>
+                <BoxView Grid.Column="5" BackgroundColor="Black" />
+                <Label Grid.Column="6" Text="Estado de entrega" Style="{StaticResource HeaderAdd}" HorizontalTextAlignment="Center"/>
+                <BoxView Grid.Column="7" BackgroundColor="Black" />
+                <Label Grid.Column="8" Text="Hora de Salida" Style="{StaticResource HeaderAdd}" HorizontalTextAlignment="Center"/>
+                <BoxView Grid.Column="9" BackgroundColor="Black" />
+                <Label Grid.Column="10" Text="Hora de Entrega" Style="{StaticResource HeaderAdd}" HorizontalTextAlignment="Center"/>
+                <BoxView Grid.Column="11" BackgroundColor="Black" />
+                <Label Grid.Column="12" Text="Editar" Style="{StaticResource HeaderAdd}" HorizontalTextAlignment="Center"/>
+                <BoxView Grid.Column="13" BackgroundColor="Black" />
+                <Label Grid.Column="14" Text="Eliminar" Style="{StaticResource HeaderAdd}" HorizontalTextAlignment="Center"/>
             </Grid>
 
             <CollectionView x:Name="sasas">
@@ -167,25 +182,28 @@
                                 <ColumnDefinition Width="2" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="2" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2" />
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="2" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Text="{Binding Id}" Style="{StaticResource DataAdd}"/>
-                            <BoxView Grid.Column="1" WidthRequest="2" BackgroundColor="Black" />
-                            <Label Grid.Column="2" Text="{Binding NombreRepartidor}" Style="{StaticResource DataAdd}"/>
-                            <BoxView Grid.Column="3" WidthRequest="2" BackgroundColor="Black" />
-                            <Label Grid.Column="4" Text="{Binding Codigo}" Style="{StaticResource DataAdd}"/>
-                            <BoxView Grid.Column="5" WidthRequest="2" BackgroundColor="Black" />
-                            <Label Grid.Column="6" Text="{Binding EstadoDescripcion}" Style="{StaticResource DataAdd}"/>
-                            <BoxView Grid.Column="7" WidthRequest="2" BackgroundColor="Black" />
-                            <Label Grid.Column="8" Text="{Binding HorSal, StringFormat='{0:dd/MM/yyyy HH:mm}'}" Style="{StaticResource DataAdd}"/>
-                            <BoxView Grid.Column="9" WidthRequest="2" BackgroundColor="Black" />
-                            <Label Grid.Column="10" Text="{Binding HorEnt, StringFormat='{0:dd/MM/yyyy HH:mm}'}" Style="{StaticResource DataAdd}"/>
-                            <BoxView Grid.Column="11" WidthRequest="2" BackgroundColor="Black" />
-                            <ImageButton Grid.Column="12" Source="edit.png" WidthRequest="2" Clicked="OnEditarPaqueClicked" CommandParameter="{Binding}" />
-                            <BoxView Grid.Column="13" WidthRequest="2" BackgroundColor="Black" />
-                            <ImageButton Grid.Column="14" Source="trash.png" WidthRequest="6" Clicked="OnEliminarPaqueClicked" CommandParameter="{Binding}" />
+
+                            <Label Grid.Column="0" Text="{Binding Id}" Style="{StaticResource DataAdd}" />
+                            <BoxView Grid.Column="1" BackgroundColor="Black" />
+                            <Label Grid.Column="2" Text="{Binding NombreRepartidor}" Style="{StaticResource DataAdd}" />
+                            <BoxView Grid.Column="3" BackgroundColor="Black" />
+                            <Label Grid.Column="4" Text="{Binding Codigo}" Style="{StaticResource DataAdd}" />
+                            <BoxView Grid.Column="5" BackgroundColor="Black" />
+                            <Label Grid.Column="6" Text="{Binding EstadoDescripcion}" Style="{StaticResource DataAdd}" />
+                            <BoxView Grid.Column="7" BackgroundColor="Black" />
+                            <Label Grid.Column="8" Text="{Binding HorSal, StringFormat='{0:dd/MM/yyyy HH:mm}'}" Style="{StaticResource DataAdd}" />
+                            <BoxView Grid.Column="9" BackgroundColor="Black" />
+                            <Label Grid.Column="10" Text="{Binding HorEnt, StringFormat='{0:dd/MM/yyyy HH:mm}'}" Style="{StaticResource DataAdd}" />
+                            <BoxView Grid.Column="11" BackgroundColor="Black" />
+                            <ImageButton Grid.Column="12" Source="edit.png" WidthRequest="24" Clicked="OnEditarPaqueClicked" CommandParameter="{Binding}" />
+                            <BoxView Grid.Column="13" BackgroundColor="Black" />
+                            <ImageButton Grid.Column="14" Source="trash.png" WidthRequest="24" Clicked="OnEliminarPaqueClicked" CommandParameter="{Binding}" />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
