@@ -46,6 +46,28 @@
                 SemanticProperties.HeadingLevel="Level2"
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
 
+            <!---   Formulario usuario   -->
+
+            <StackLayout x:Name="AgregarGrupoUser">
+                <Label Text="Agregar Nuevo Usuario" 
+           FontSize="Large" 
+           HorizontalOptions="Center" />
+
+                <Entry x:Name="NombreEntry" 
+           Placeholder="Nombre" 
+           Margin="0,10" />
+
+                <Entry x:Name="ContrasenaEntry" 
+           Placeholder="Contraseña" 
+           IsPassword="True" 
+           Margin="0,10" />
+
+                <Button Text="Agregar Usuario" 
+            Clicked="OnAgregarUsuarioClicked" 
+            HorizontalOptions="Center" 
+            Margin="0,20" />
+            </StackLayout>
+
         </VerticalStackLayout>
     </ScrollView>
 

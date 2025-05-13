@@ -1,5 +1,8 @@
 ﻿using Ipsilon_1.Views;
+using Ipsilon_1.Models;
 using Newtonsoft.Json;
+using System.Net.Http;
+using System.Text;
 
 
 namespace Ipsilon_1
@@ -20,7 +23,7 @@ namespace Ipsilon_1
 
             var Cliente = new HttpClient(handler);
             var url = DeviceInfo.Platform == DevicePlatform.Android
-                ? "https://172.26.80.1:7169"
+                ? "https://192.168.0.100:7169"
                 : "https://localhost:7169";
 
             var resp = await Cliente.GetAsync($"{url}/WeatherForecast");
@@ -45,7 +48,7 @@ namespace Ipsilon_1
 
             var Cliente = new HttpClient(handler);
             var url = DeviceInfo.Platform == DevicePlatform.Android
-                ? "https://10.0.2.2:7169"
+                ? "https://192.168.0.100:7169"
                 : "https://localhost:7169";
 
             var resp = await Cliente.GetAsync($"{url}/Usuarios");
@@ -53,6 +56,36 @@ namespace Ipsilon_1
             var dato = await resp.Content.ReadAsStringAsync();
 
             helo.Text = dato;
+        }
+
+        //Usuarios Main metod
+
+        private async void OnAgregarUsuarioClicked(object sender, EventArgs e)
+        {
+            var usuario = new Usuario
+            {
+                Nombre = NombreEntry.Text,
+                Contrasena = ContrasenaEntry.Text
+            };
+
+            var resultado = await AgregarUsuarioAsync(usuario);
+            await DisplayAlert("Se ha agregado un usuario", "Usuario agregado exitosamente", "OK");
+            NombreEntry.Text = string.Empty;
+            ContrasenaEntry.Text = string.Empty;
+        }
+
+        //Usuario util task
+        private async Task<bool> AgregarUsuarioAsync(Usuario usuario)
+        {
+            string url = "https://192.168.0.100:7169/Usuarios";
+            using (HttpClient client = new HttpClient())
+            {
+                var json = JsonConvert.SerializeObject(usuario);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync(url, content);
+
+                return response.IsSuccessStatusCode;
+            }
         }
     }
 
