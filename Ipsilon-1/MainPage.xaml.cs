@@ -3,6 +3,7 @@ using Ipsilon_1.Models;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
+using Ipsilon_1.fleshy;
 
 
 namespace Ipsilon_1
@@ -22,9 +23,7 @@ namespace Ipsilon_1
             };
 
             var Cliente = new HttpClient(handler);
-            var url = DeviceInfo.Platform == DevicePlatform.Android
-                ? "https://192.168.0.100:7169"
-                : "https://localhost:7169";
+            var url = Vars_Globales.Uerel;
 
             var resp = await Cliente.GetAsync($"{url}/WeatherForecast");
 
@@ -47,9 +46,7 @@ namespace Ipsilon_1
             };
 
             var Cliente = new HttpClient(handler);
-            var url = DeviceInfo.Platform == DevicePlatform.Android
-                ? "https://192.168.0.100:7169"
-                : "https://localhost:7169";
+            var url = Vars_Globales.Uerel;
 
             var resp = await Cliente.GetAsync($"{url}/Usuarios");
 
@@ -77,7 +74,7 @@ namespace Ipsilon_1
         //Usuario util task
         private async Task<bool> AgregarUsuarioAsync(Usuario usuario)
         {
-            string url = "https://192.168.0.100:7169/Usuarios";
+            string url = $"{Vars_Globales.Uerel}/Usuarios";
             using (HttpClient client = new HttpClient())
             {
                 var json = JsonConvert.SerializeObject(usuario);

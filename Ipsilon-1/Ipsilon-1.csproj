@@ -66,6 +66,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\conf1gs.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Movile\DelivMood.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

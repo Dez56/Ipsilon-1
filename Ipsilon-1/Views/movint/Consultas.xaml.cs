@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
+using Ipsilon_1.Models;
+using Ipsilon_1.fleshy;
 using Newtonsoft.Json;
 using System.Text;
+
 
 namespace Ipsilon_1.Views.movint;
 
@@ -99,7 +102,7 @@ public partial class Consultas : ContentPage
 
     private async Task Load()
     {
-        string url = "https://localhost:7169/Usuarios"; 
+        string url = $"{Vars_Globales.Uerel}/Usuarios"; 
         using (HttpClient client = new HttpClient())
         {
             var response = await client.GetStringAsync(url);
@@ -112,8 +115,8 @@ public partial class Consultas : ContentPage
 
     private async Task leed()
     {
-        string urlPaquetes = "https://localhost:7169/Paquetes";
-        string urlRepartidores = "https://localhost:7169/Usuarios";
+        string urlPaquetes = $"{Vars_Globales.Uerel}/Paquetes";
+        string urlRepartidores = $"{Vars_Globales.Uerel}/Usuarios";
 
         using (HttpClient client = new HttpClient())
         {
@@ -156,7 +159,7 @@ public partial class Consultas : ContentPage
         //Usuario util task
     private async Task<bool> AgregarUsuarioAsync(Usuario usuario)
     {
-        string url = "https://localhost:7169/Usuarios";
+        string url = $"{Vars_Globales.Uerel}/Usuarios";
         using (HttpClient client = new HttpClient())
         {
             var json = JsonConvert.SerializeObject(usuario);
@@ -207,7 +210,7 @@ public partial class Consultas : ContentPage
 
     private async Task<bool> AgregarpaqueteAsync(Paquete Paquete)
     {
-        string url = "https://localhost:7169/Paquetes";
+        string url = $"{Vars_Globales.Uerel}Paquetes";
         using (HttpClient client = new HttpClient())
         {
             var json = JsonConvert.SerializeObject(Paquete);
@@ -231,7 +234,7 @@ public partial class Consultas : ContentPage
             Contrasena = EditContrasenaEntry.Text
         };
 
-        string url = $"https://localhost:7169/Usuarios/{usuario.Id}"; // Endpoint de la API
+        string url = $"{Vars_Globales.Uerel}Usuarios/{usuario.Id}"; // Endpoint de la API
         using (HttpClient client = new HttpClient())
         {
             var json = JsonConvert.SerializeObject(usuario);
@@ -270,7 +273,7 @@ public partial class Consultas : ContentPage
             if (confirm)
             {
                 // Llamar a la API para eliminar al usuario
-                string url = $"https://localhost:7169/Usuarios/{usuario.Id}";
+                string url = $"{Vars_Globales.Uerel}/Usuarios/{usuario.Id}";
                 using (HttpClient client = new HttpClient())
                 {
                     var response = await client.DeleteAsync(url);
@@ -304,7 +307,7 @@ public partial class Consultas : ContentPage
             if (confirm)
             {
                 // Llamar a la API para eliminar al usuario
-                string url = $"https://localhost:7169/Paquetes/{paque.Id}";
+                string url = $"{Vars_Globales.Uerel}/Paquetes/{paque.Id}";
                 using (HttpClient client = new HttpClient())
                 {
                     var response = await client.DeleteAsync(url);
@@ -324,53 +327,4 @@ public partial class Consultas : ContentPage
             }
         }
     }
-}
-
-/*Modelos para el envio de formularios, esto es algo un poco muy
- polimorfo ya que se usa el mismo para el recibir y enviar Jsons
-para el API, el plan es que esto este en el mismo archivo*/
-
-public class Usuario
-{
-    public int Id { get; set; }
-    public required string Nombre { get; set; }
-    public required string Contrasena { get; set; }
-}
-
-public class Paquete
-{
-    public int Id { get; set; }
-
-    public int Repartidor { get; set; } 
-
-    public string? NombreRepartidor { get; set; }
-
-    public required string Codigo { get; set; }
-
-    private int _estado;
-    public int Estado
-    {
-        get => _estado;
-        set
-        {
-            _estado = value;
-            if (_estado == 1 && HorEnt == null)
-            {
-                HorEnt = DateTime.Now;
-            }
-        }
-    }
-
-    public DateTime HorSal { get; set; }
-
-    public DateTime? HorEnt { get; set; }
-
-    public string EstadoDescripcion => Estado switch
-    {
-        0 => "En proceso de entrega",
-        1 => "Entregado",
-        2 => "Cancelado",
-        3 => "No entregado",
-        _ => throw new NotImplementedException()
-    };
 }

@@ -11,6 +11,16 @@
             HorizontalOptions="CenterAndExpand"
             Spacing="20"
             Padding="20">
+            
+            <HorizontalStackLayout>
+                <Button
+                    x:Name="ButCfg"
+                    Text="Config"
+                    Clicked="gointoco"
+                    HorizontalOptions="End"
+                    BackgroundColor="#E5007D"
+                    TextColor="White" />
+            </HorizontalStackLayout>
 
             <Frame 
                 CornerRadius="10" 
