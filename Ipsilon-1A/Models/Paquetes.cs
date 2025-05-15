@@ -9,5 +9,7 @@
 
         public DateTime HorSal { get; set; }
         public DateTime? HorEnt { get; set; }
+
+        public required string Link { get; set; }
     }
 }

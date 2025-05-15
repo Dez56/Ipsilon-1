@@ -97,6 +97,41 @@ public partial class Consultas : ContentPage
         }
     }
 
+    private void OnEditarPaqueClicked(object sender, EventArgs e)
+    {
+        var bothon = sender as ImageButton;
+        var paquete = bothon?.CommandParameter as Paquete;
+        if (paquete != null)
+        {
+            DisplayAlert("Editar Paquete", $"Editarás al paquete: {paquete.Codigo} llevado por {paquete.NombreRepartidor}", "OK");
+            HideALLGs("EditarGrupoPaq");
+            EditarGrupoPaq.IsVisible = true;
+
+            var gadio = paquete.Estado;
+
+            switch (gadio)
+            {
+                case 0:
+                    tA0.IsChecked = true;
+                    break;
+                case 1:
+                    tA1.IsChecked = true;
+                    break;
+                case 2:
+                    tA2.IsChecked = true;
+                    break;
+                case 3:
+                    tA3.IsChecked = true;
+                    break;
+            }
+
+            HidedIDPaq.Text = paquete.Id.ToString();
+            HidedsaL.Text = paquete.HorSal.ToString("yyyy-MM-dd HH:mm"); // Formato editable
+            HidedEnt.Text = paquete.HorEnt.HasValue ? paquete.HorEnt.Value.ToString("yyyy-MM-dd HH:mm") : string.Empty;
+
+        }
+    }
+
     /*Los siguientes metodos son consultas a las bases de datos, que llenan el modelo
      esto se aprecia en la 4ta linea util de ambos metodos*/
 
@@ -249,14 +284,6 @@ public partial class Consultas : ContentPage
     }
 
     //Paquetes edit
-
-    private void OnEditarPaqueClicked(object sender, EventArgs e)
-    {
-        if (true)
-        {
-            return;
-        }
-    }
 
     //Metodos de Eliminacion de registros
 

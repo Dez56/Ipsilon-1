@@ -48,5 +48,7 @@ namespace Ipsilon_1.Models
             3 => "No entregado",
             _ => throw new NotImplementedException()
         };
+
+        public required string link { get; set; }
     }
 }

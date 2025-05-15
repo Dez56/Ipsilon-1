@@ -287,7 +287,7 @@
 
         <!---   Formulario usuario   -->
         <StackLayout x:Name="EditarGrupoUser" IsVisible="False">
-            <Label Text="Agregar Nuevo Usuario" 
+            <Label Text="Editar Usuario" 
                 FontSize="Large" 
                 HorizontalOptions="Center" />
 
@@ -317,6 +317,47 @@
         </StackLayout>
 
         <!---   Formulario paquetes   -->
+        <StackLayout x:Name="EditarGrupoPaq" IsVisible="True">
+            <Label Text="Agregar Nuevo Paquete" 
+                FontSize="Large" 
+                HorizontalOptions="Center" />
+            
+            <!--hiddens-->
+            <Entry x:Name="HidedIDPaq"
+                   IsVisible="False"/>
+            <Entry x:Name="HidedsaL"
+                    IsVisible="False"/>
+            <Entry x:Name="HidedEnt"
+                    IsVisible="False"/>
+            <!--unhiddens-->
+            <Label Text="id de repartidor"/>
+            <Entry x:Name="Paquid"/>
+            <Label Text="Codigo de paquete"/>
+            <Entry x:Name="HidedIDPaq"/>
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                <RadioButton
+                     x:Name="tA0"
+                     Content="En proceso" 
+                     Value="0" 
+                     GroupName="ediRadio1" />
+                <RadioButton
+                    x:Name="tA1"
+                    Content="Entregado" 
+                    Value="1" 
+                    GroupName="ediRadio1" />
+                <RadioButton
+                    x:Name="tA2"
+                    Content="Cancelado" 
+                    Value="2" 
+                    GroupName="ediRadio1" />
+                <RadioButton
+                    x:Name="tA3"
+                    Content="No recibió" 
+                    Value="3" 
+                    GroupName="ediRadio1" />
+            </HorizontalStackLayout>
+
+        </StackLayout>
     </VerticalStackLayout>
 
 </ContentPage>
