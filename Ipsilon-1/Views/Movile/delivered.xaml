@@ -20,7 +20,8 @@
            VerticalOptions="Center"
            Grid.Column="1"/>
         </Grid>
-        <Label Text="ID"
+        
+            <Label Text="ID"
        TextColor="Black"
        FontSize="24"
        HorizontalOptions="Start" />
@@ -90,7 +91,8 @@
 TextColor="Black"
 FontSize="24"
 HorizontalOptions="Start" />
-        <Button
+
+                <Button
                 Clicked="open"
         Text="Abrir link de factura"
         TextColor="White"

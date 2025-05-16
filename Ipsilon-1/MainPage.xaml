@@ -44,7 +44,7 @@
 
                     <VerticalStackLayout Spacing="15">
                         <Label 
-                        Text="Metodo Get"
+                        Text="Iniciar sesion"
                         FontAttributes="Bold"
                         FontSize="24"
                         HorizontalOptions="Center" />

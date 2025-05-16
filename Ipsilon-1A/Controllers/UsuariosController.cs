@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Ipsilon_1A.Data;
@@ -21,14 +20,27 @@ namespace Ipsilon_1A.Controllers
             _context = context;
         }
 
-        // GET: api/Usuarios
+        // GET: /Usuarios
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
         {
             return await _context.Usuarios.ToListAsync();
         }
 
-        // GET: api/Usuarios/5
+        // GET: /Usuarios/paged?skip=0&take=10
+        [HttpGet("paged")]
+        public IActionResult GetUsuariosPaged(int skip, int take)
+        {
+            var usuarios = _context.Usuarios
+                .OrderBy(u => u.Id)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
+
+            return Ok(usuarios);
+        }
+
+        // GET: /Usuarios/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Usuario>> GetUsuario(int id)
         {
@@ -42,8 +54,7 @@ namespace Ipsilon_1A.Controllers
             return usuario;
         }
 
-
-        // GET: api/Usuarios/ByName
+        // GET: /Usuarios/ByName?nombre=...&contrasena=...
         [HttpGet("ByName")]
         public async Task<ActionResult<Usuario>> GetUsuarioByName(string nombre, string contrasena)
         {
@@ -57,8 +68,7 @@ namespace Ipsilon_1A.Controllers
             return usuario;
         }
 
-
-        // POST: api/Usuarios
+        // POST: /Usuarios
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
@@ -68,7 +78,7 @@ namespace Ipsilon_1A.Controllers
             return CreatedAtAction("GetUsuario", new { id = usuario.Id }, usuario);
         }
 
-        // PUT: api/Usuarios/5
+        // PUT: /Usuarios/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
         {
@@ -98,7 +108,7 @@ namespace Ipsilon_1A.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Usuarios/5
+        // DELETE: /Usuarios/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUsuario(int id)
         {

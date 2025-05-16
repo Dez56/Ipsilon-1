@@ -13,7 +13,12 @@ namespace Ipsilon_1.Views.movint;
 
 public partial class Consultas : ContentPage
 {
-	public Consultas()
+
+    private int currentPage = 0;
+    private const int pageSize = 50;
+    private int currentPagePaquetes = 0;
+    private const int pageSizePaquetes = 50;
+    public Consultas()
 	{
 		InitializeComponent();
         
@@ -32,6 +37,41 @@ public partial class Consultas : ContentPage
             {
                 layout.IsVisible = layoutName == SelecLay;
             }
+        }
+
+        currentPage = 0;
+        
+    }
+
+    //botobnes sigs usuarios
+
+    private async void OnNextPageClicked(object sender, EventArgs e)
+    {
+        currentPage++;
+        await Load();
+    }
+
+    private async void OnPreviousPageClicked(object sender, EventArgs e)
+    {
+        if (currentPage > 0)
+            currentPage--;
+        await Load();
+    }
+
+    //botones sigus paquae
+
+    private async void OnSiguientePaqueteClicked(object sender, EventArgs e)
+    {
+        currentPagePaquetes++;
+        await leed();
+    }
+
+    private async void OnAnteriorPaqueteClicked(object sender, EventArgs e)
+    {
+        if (currentPagePaquetes > 0)
+        {
+            currentPagePaquetes--;
+            await leed();
         }
     }
 
@@ -141,20 +181,21 @@ public partial class Consultas : ContentPage
 
     private async Task Load()
     {
-        string url = $"{Vars_Globales.Uerel}/Usuarios"; 
+        int skip = currentPage * pageSize;
+        string url = $"{Vars_Globales.Uerel}/Usuarios?skip={skip}&take={pageSize}";
+
         using (HttpClient client = new HttpClient())
         {
             var response = await client.GetStringAsync(url);
-            
             var data = JsonConvert.DeserializeObject<List<Usuario>>(response);
             DataCollectionView.ItemsSource = data;
-
-        }
+        }   
     }
 
     private async Task leed()
     {
-        string urlPaquetes = $"{Vars_Globales.Uerel}/Paquetes";
+        int skip = currentPagePaquetes * pageSizePaquetes;
+        string urlPaquetes = $"{Vars_Globales.Uerel}/Paquetes?skip={skip}&take={pageSizePaquetes}";
         string urlRepartidores = $"{Vars_Globales.Uerel}/Usuarios";
 
         using (HttpClient client = new HttpClient())

@@ -16,28 +16,28 @@
                    VerticalOptions="Center" />
         </Grid>
 
-        <!-- Información centrada -->
-        <Grid Grid.Row="1" Padding="0" RowDefinitions="*,*" ColumnDefinitions="*">
-            <Grid Padding="0,40,0,0" RowSpacing="18" ColumnSpacing="10" Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+        <!-- Información -->
+            <Grid Grid.Row="1" Padding="0" RowDefinitions="*,*" ColumnDefinitions="*">
+                <Grid Padding="0,40,0,0" RowSpacing="18" ColumnSpacing="10" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                <Label Text="Repartidor:" 
+                    <Label Text="Repartidor:" 
                        FontAttributes="Bold" 
                        FontSize="31" 
                        HorizontalOptions="End"
                        HorizontalTextAlignment="End"
                        Grid.Row="0" Grid.Column="0" 
                        TextColor="Black"/>
-                
-                <Label Text=""
+
+                    <Label Text=""
                        x:Name="Avaricia"
                        TextColor="#E5007D" 
                        FontAttributes="Bold"
@@ -46,14 +46,14 @@
                        HorizontalTextAlignment="Start"
                        Grid.Row="0" Grid.Column="1" />
 
-                <Label Text="Numero de factura" 
+                    <Label Text="Numero de factura" 
                        FontAttributes="Bold" 
                        FontSize="31" 
                        HorizontalOptions="End"
                        HorizontalTextAlignment="End"
                        Grid.Row="1" Grid.Column="0" 
                        TextColor="Black"/>
-                <Label Text=""
+                    <Label Text=""
                        x:Name="Codicia"
                        TextColor="#E5007D" 
                        FontAttributes="Bold"
@@ -62,14 +62,14 @@
                        HorizontalTextAlignment="Start"
                        Grid.Row="1" Grid.Column="1" />
 
-                <Label Text="Salida a las:" 
+                    <Label Text="Salida a las:" 
                        FontAttributes="Bold" 
                        FontSize="31" 
                        HorizontalOptions="End"
                        HorizontalTextAlignment="End"
                        Grid.Row="2" Grid.Column="0"
                        TextColor="Black"/>
-                <Label Text="" 
+                    <Label Text="" 
                        x:Name="Mentiras"
                        TextColor="#E5007D" 
                        FontAttributes="Bold"
@@ -77,8 +77,9 @@
                        HorizontalOptions="Start"
                        HorizontalTextAlignment="Start"
                        Grid.Row="2" Grid.Column="1" />
+                </Grid>
             </Grid>
-        </Grid>
+        
 
         <!-- Slider con íconos abajo -->
         <Grid Grid.Row="2" Padding="20,0,20,20" RowDefinitions="Auto,Auto" ColumnDefinitions="*,*,*">

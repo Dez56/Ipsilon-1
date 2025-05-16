@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Ipsilon_1A.Data;
@@ -21,14 +20,27 @@ namespace Ipsilon_1A.Controllers
             _context = context;
         }
 
-        // GET: api/Paquetes
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Paquete>>> GetPaquetes()
+        // GET: /Paquetes
+        [HttpGet("All")]
+        public async Task<ActionResult<IEnumerable<Paquete>>> GetPaquetesAll()
         {
             return await _context.Paquetes.ToListAsync();
         }
 
-        // GET: api/Paquetes/5
+        // GET: /Paquetes?skip=0&take=10
+        [HttpGet]
+        public IActionResult GetPaquetes([FromQuery] int skip, [FromQuery] int take)
+        {
+            var paquetes = _context.Paquetes
+                .OrderBy(p => p.Id)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
+
+            return Ok(paquetes);
+        }
+
+        // GET: /Paquetes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Paquete>> GetPaquete(int id)
         {
@@ -55,8 +67,7 @@ namespace Ipsilon_1A.Controllers
             return Ok(paquete);
         }
 
-        // PUT: api/Paquetes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // PUT: /Paquetes/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPaquete(int id, Paquete paquete)
         {
@@ -86,18 +97,17 @@ namespace Ipsilon_1A.Controllers
             return NoContent();
         }
 
-        // POST: api/Paquetes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: /Paquetes
         [HttpPost]
         public async Task<ActionResult<Paquete>> PostPaquete(Paquete paquete)
         {
             _context.Paquetes.Add(paquete);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPaquete", new { id = paquete.Id }, paquete);
+            return CreatedAtAction(nameof(GetPaquete), new { id = paquete.Id }, paquete);
         }
 
-        // DELETE: api/Paquetes/5
+        // DELETE: /Paquetes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePaquete(int id)
         {
