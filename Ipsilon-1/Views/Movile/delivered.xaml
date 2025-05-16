@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Ipsilon_1.Views.Movile.delivered"
-             Title="delivered"
+             Title="Delivered"
              BackgroundColor="White">
     <VerticalStackLayout>
         <!-- Encabezado -->
@@ -21,45 +21,81 @@
            Grid.Column="1"/>
         </Grid>
         <Label Text="ID"
-               TextColor="Black"
-               FontSize="24"
-               HorizontalOptions="Start"
-               VerticalOptions="Start" />
+       TextColor="Black"
+       FontSize="24"
+       HorizontalOptions="Start" />
+        <Label x:Name="tla0"
+       Text=""
+       TextColor="#E5007D"
+       FontSize="18"
+       HorizontalOptions="Start" />
 
         <Label Text="Entregado por:"
-               TextColor="Black"
-               FontSize="24"
-               HorizontalOptions="Start"
-               VerticalOptions="Start" />
+       TextColor="Black"
+       FontSize="24"
+       HorizontalOptions="Start" />
+        <Label x:Name="tla1"
+       Text=""
+       TextColor="#E5007D"
+       FontSize="18"
+       HorizontalOptions="Start" />
 
         <Label Text="Numero de factura"
-               TextColor="Black"
-               FontSize="24"
-               HorizontalOptions="Start"
-               VerticalOptions="Start" />
+       TextColor="Black"
+       FontSize="24"
+       HorizontalOptions="Start" />
+        <Label x:Name="tla2"
+       Text=""
+       TextColor="#E5007D"
+       FontSize="18"
+       HorizontalOptions="Start" />
 
         <Label Text="Estado"
-               TextColor="Black"
-               FontSize="24"
-               HorizontalOptions="Start"
-               VerticalOptions="Start" />
+       TextColor="Black"
+       FontSize="24"
+       HorizontalOptions="Start" />
+        <Label x:Name="tla3"
+       Text=""
+       TextColor="#E5007D"
+       FontSize="18"
+       HorizontalOptions="Start" />
 
         <Label Text="Hora en que salió"
-               TextColor="Black"
-               FontSize="24"
-               HorizontalOptions="Start"
-               VerticalOptions="Start" />
+       TextColor="Black"
+       FontSize="24"
+       HorizontalOptions="Start" />
+        <Label x:Name="tla4"
+       Text=""
+       TextColor="#E5007D"
+       FontSize="18"
+       HorizontalOptions="Start" />
 
         <Label Text="Hora en que se entregó"
-               TextColor="Black"
-               FontSize="24"
-               HorizontalOptions="Start"
-               VerticalOptions="Start" />
+       TextColor="Black"
+       FontSize="24"
+       HorizontalOptions="Start" />
+        <Label x:Name="tla5"
+       Text=""
+       TextColor="#E5007D"
+       FontSize="18"
+       HorizontalOptions="Start" />
 
         <Label Text="Link de factura"
-               TextColor="Black"
-               FontSize="24"
-               HorizontalOptions="Start"
-               VerticalOptions="Start" />
+       TextColor="Black"
+       FontSize="24"
+       HorizontalOptions="Start" />
+        <Label Text="Link de factura"
+               x:Name="tla6"
+               IsVisible="False"
+TextColor="Black"
+FontSize="24"
+HorizontalOptions="Start" />
+        <Button
+                Clicked="open"
+        Text="Abrir link de factura"
+        TextColor="White"
+        BackgroundColor="#E5007D"
+        FontSize="18"
+        HorizontalOptions="Start" />
     </VerticalStackLayout>
 </ContentPage>

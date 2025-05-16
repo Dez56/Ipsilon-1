@@ -40,7 +40,7 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\Images\apticon.svg" foregroundscale =".70" />
+		<MauiIcon Include="Resources\Images\apticon.svg" foregroundscale=".70" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
@@ -70,10 +70,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\Movile\delivered.xaml.cs">
+	    <DependentUpon>Delivered.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Views\conf1gs.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Movile\delivered.xaml">
+	  <MauiXaml Update="Views\Movile\Delivered.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Movile\DelivMood.xaml">

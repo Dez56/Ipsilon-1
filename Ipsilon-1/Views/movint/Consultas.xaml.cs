@@ -129,7 +129,7 @@ public partial class Consultas : ContentPage
             HidedsaL.Text = paquete.HorSal.ToString("yyyy-MM-dd HH:mm"); // Formato editable
             HidedEnt.Text = paquete.HorEnt.HasValue ? paquete.HorEnt.Value.ToString("yyyy-MM-dd HH:mm") : string.Empty;
 
-            Paquid.Text = Convert.ToString(paquete.Repartidor);
+            Paquid.Text = Convert.ToString(paquete.Repártidor);
             Paqueter.Text = paquete.Codigo;
             L2nk.Text = paquete.link;
 
@@ -167,7 +167,7 @@ public partial class Consultas : ContentPage
 
             foreach (var paquete in paquetes)
             {
-                var repartidor = repartidores.FirstOrDefault(r => r.Id == paquete.Repartidor);
+                var repartidor = repartidores.FirstOrDefault(r => r.Id == paquete.Repártidor);
                 paquete.NombreRepartidor = repartidor?.Nombre ?? "Desconocido";
             }
 
@@ -253,7 +253,7 @@ public partial class Consultas : ContentPage
 
         var paquetes = new Paquete
         {
-            Repartidor = Convert.ToInt32(repar.Text),
+            Repártidor = Convert.ToInt32(repar.Text),
             Codigo = codig.Text,
             Estado = RadiValor,
             HorSal = DateTime.Now, // Hora actual al crear el registro
@@ -314,7 +314,7 @@ public partial class Consultas : ContentPage
         var paquete = new Paquete
         {
             Id = Convert.ToInt32(HideditIDPaq.Text),
-            Repartidor = Convert.ToInt32(Paquid.Text),
+            Repártidor = Convert.ToInt32(Paquid.Text),
             Codigo = Paqueter.Text,
             HorSal = DateTime.Parse(HidedsaL.Text),
             HorEnt = string.IsNullOrWhiteSpace(HidedEnt.Text) ? (DateTime?)null : DateTime.Parse(HidedEnt.Text),

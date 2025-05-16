@@ -16,7 +16,7 @@ namespace Ipsilon_1.Models
     {
         public int Id { get; set; }
 
-        public int Repartidor { get; set; }
+        public int Repártidor { get; set; }
 
         public string? NombreRepartidor { get; set; }
 

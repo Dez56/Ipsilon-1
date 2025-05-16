@@ -2,20 +2,41 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Ipsilon_1.Views.conf1gs"
-             Title="conf1gs">
-    <VerticalStackLayout>
+             Title="Configuración"
+             BackgroundColor="#FFF0F5">
+    <!-- Fondo blanco rosado suave -->
+
+    <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+
         <Label 
             Text="Dirección del server"
-            VerticalOptions="Center" 
+            FontAttributes="Bold"
+            FontSize="20"
+            TextColor="#D6336C"
             HorizontalOptions="Center" />
-        
-        <Entry x:Name="entryDireccion"
-           Placeholder="Dirección del servidor"
-           Text="{Binding DireccionServidor}"
-           Keyboard="Url" />
 
-        <Button Text="Guardar dirección"
-            Clicked="GuardarDireccion_Clicked" />
+            <Entry x:Name="entryDireccion"
+               Placeholder="Dirección del servidor"
+               Text="{Binding DireccionServidor}"
+               Keyboard="Url"
+               BackgroundColor="White"
+               TextColor="#D6336C"
+               PlaceholderColor="#FFB6C1" 
+                HeightRequest="50"
+               WidthRequest="300"
+               HorizontalOptions="Center"
+               Margin="0,0,0,10"
+               />
+
+                <Button Text="Guardar dirección"
+                BackgroundColor="#D6336C"
+                TextColor="White"
+                FontAttributes="Bold"
+                HeightRequest="50"
+                WidthRequest="300"
+                CornerRadius="10"
+                HorizontalOptions="Center"
+                Clicked="GuardarDireccion_Clicked" />
 
     </VerticalStackLayout>
 </ContentPage>

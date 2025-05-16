@@ -29,9 +29,6 @@ public partial class MovileQr : ContentPage
 
     private void OnBarcodeDetected(object sender, BarcodeDetectionEventArgs e)
     {
-
-        //extraer link del qr
-
         if (scanningPaused) return;
 
         var First = e.Results?.FirstOrDefault();
@@ -39,12 +36,10 @@ public partial class MovileQr : ContentPage
 
         var value = First.Value;
 
-        // Validar si es un QR del SAT
         if (Uri.TryCreate(value, UriKind.Absolute, out var uri)
             && uri.Host.Contains("facturaelectronica.sat.gob.mx"))
         {
             var queryParams = System.Web.HttpUtility.ParseQueryString(uri.Query);
-
             var folioFiscal = queryParams["id"];
 
             if (!string.IsNullOrEmpty(folioFiscal))
@@ -62,26 +57,35 @@ public partial class MovileQr : ContentPage
 
                         if (response.IsSuccessStatusCode)
                         {
-                            // Deserializar el paquete recibido
                             var jsonResponse = await response.Content.ReadAsStringAsync();
-                            var paqueteExistente = JsonSerializer.Deserialize<Paquete>(jsonResponse);
 
-                            if (paqueteExistente != null && paqueteExistente.Estado == 0)
+                            var options = new JsonSerializerOptions
                             {
-                                await DisplayAlert("Aviso", $"Este paquete ya está en proceso, codigo:{folioFiscal}", "OK");
-                                scanningPaused = false;
-                                return;
-                            }else if (paqueteExistente != null && paqueteExistente.Estado == 0) {
-                                
+                                PropertyNameCaseInsensitive = true
+                            };
+
+                            var paqueteExistente = JsonSerializer.Deserialize<Paquete>(jsonResponse, options);
+
+                            if (paqueteExistente != null)
+                            {
+                                if (paqueteExistente.Estado == 0)
+                                {
+                                    await DisplayAlert("Aviso", $"Este paquete ya está en proceso, código: {folioFiscal}", "OK");
+                                    return;
+                                }
+                                else if (paqueteExistente.Estado == 1)
+                                {
+                                    await Navigation.PushAsync(new delivered(paqueteExistente.Id));
+                                    return;
+                                }
                             }
                         }
-
-                        // Si no existe, crear paquete
-                        if (!response.IsSuccessStatusCode)
+                        else
                         {
+                            // Crear paquete si no existe
                             var nuevoPaquete = new Paquete
                             {
-                                Repartidor = Vars_Globales.UeserID,
+                                Repártidor = Vars_Globales.UeserID,
                                 Codigo = folioFiscal,
                                 Estado = 0,
                                 HorSal = DateTime.Now,
@@ -94,15 +98,18 @@ public partial class MovileQr : ContentPage
                             await httpClient.PostAsync($"{Vars_Globales.Uerel}/Paquetes", content);
                         }
 
-                        // Pasar solo el folio fiscal a la siguiente página
+                        // Ir a pantalla de entrega
                         await Navigation.PushAsync(new DelivMood(folioFiscal));
                     }
                     catch (Exception ex)
                     {
                         await DisplayAlert("Error", ex.Message, "OK");
                     }
+                    finally
+                    {
+                        scanningPaused = false;
+                    }
                 });
-
             }
         }
     }

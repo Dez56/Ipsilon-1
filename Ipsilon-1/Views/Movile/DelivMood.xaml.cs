@@ -75,7 +75,7 @@ public partial class DelivMood : ContentPage
             var paquete = new Paquete
             {
                 Id = Vars_Globales.pask.Id,
-                Repartidor = Vars_Globales.UeserID,
+                Repártidor = Vars_Globales.UeserID,
                 Codigo = Vars_Globales.pask.Codigo,
                 HorSal = Vars_Globales.pask.HorSal,
                 HorEnt = stat == 1 ? DateTime.Now : null,
@@ -101,6 +101,8 @@ public partial class DelivMood : ContentPage
                     await Navigation.PopToRootAsync();
                 }
             }
+            
+            
         }
         catch (Exception ex)
         {

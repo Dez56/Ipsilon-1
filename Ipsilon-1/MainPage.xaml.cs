@@ -73,7 +73,7 @@ namespace Ipsilon_1
 
         private async void redire(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new delivered());
+            await Navigation.PushAsync(new delivered(1));
 
         }
     }
