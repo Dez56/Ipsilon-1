@@ -3,21 +3,19 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
-using Ipsilon_1A.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<Ipsilon_1AContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Ipsilon_1AContext") ?? throw new InvalidOperationException("Connection string 'Ipsilon_1AContext' not found.")));
 
-// Add services to the container.
+builder.Services.AddDbContext<Ipsilon_1AContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Ipsilon_1AContext")
+        ?? throw new InvalidOperationException("Connection string 'Ipsilon_1AContext' not found.")));
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers();
 
-// Configure JWT Authentication
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -33,28 +31,43 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
-        //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        // Descomenta y ajusta la línea siguiente cuando tengas la clave JWT lista:
+        // IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
 });
-
-//ip externa
 
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
     serverOptions.ListenAnyIP(7169, listenOptions =>
     {
-        listenOptions.UseHttps(); 
+        listenOptions.UseHttps();
     });
 });
 
-
-// Configure Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Migrar base de datos automáticamente al iniciar
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<Ipsilon_1AContext>();
+        context.Database.Migrate();
+
+        var appContext = services.GetRequiredService<ApplicationDbContext>();
+        appContext.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        // Aquí puedes hacer logging o manejo de errores
+        Console.WriteLine($"Error al migrar la base de datos: {ex.Message}");
+    }
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -63,12 +76,6 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
     });
 }
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-};
 
 app.UseHttpsRedirection();
 
