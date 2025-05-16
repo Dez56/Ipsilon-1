@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
 using Ipsilon_1.fleshy;
+using Ipsilon_1.Views.movint;
+using Ipsilon_1.Views.Movile;
 
 
 namespace Ipsilon_1
@@ -15,8 +17,11 @@ namespace Ipsilon_1
             InitializeComponent();
         }
 
-        private async void OnCounterClicked(object sender, EventArgs e)
+        private async void OnNavigateButtonClicked(object sender, EventArgs e)
         {
+            var nombre = NombreEntry.Text;
+            var contrasena = ContrasenaEntry.Text;
+
             var handler = new HttpClientHandler
             {
                 ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
@@ -25,65 +30,50 @@ namespace Ipsilon_1
             var Cliente = new HttpClient(handler);
             var url = Vars_Globales.Uerel;
 
-            var resp = await Cliente.GetAsync($"{url}/WeatherForecast");
+            var response = await Cliente.GetAsync($"{url}/Usuarios/ByName?nombre={nombre}&contrasena={contrasena}");
+            
 
-            var dato = await resp.Content.ReadAsStringAsync();
-
-            helo.Text = dato;
-        }
-
-        private async void OnNavigate2Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new NewPage1());
-        }
-
-
-        private async void oh_no_abtn(object sender, EventArgs e)
-        {
-            var handler = new HttpClientHandler
+            if (response.IsSuccessStatusCode)
             {
-                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
-            };
 
-            var Cliente = new HttpClient(handler);
-            var url = Vars_Globales.Uerel;
+                var json = await response.Content.ReadAsStringAsync();
+                var usuario = JsonConvert.DeserializeObject<Usuario>(json);
 
-            var resp = await Cliente.GetAsync($"{url}/Usuarios");
+                if (usuario != null) // Check if 'usuario' is not null
+                {
+                    Vars_Globales.UeserID = usuario.Id;
+                    Vars_Globales.Nii = nombre;
 
-            var dato = await resp.Content.ReadAsStringAsync();
+                    if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS)
+                    {
+                        await Navigation.PushAsync(new MovileQr());
+                    }
+                    else
+                    {
+                        await Navigation.PushAsync(new Consultas());
+                    }
+                }
+                else
+                {
+                    await DisplayAlert("Error", "El servidor no proceso bien la información, intente luego", "OK");
+                }
 
-            helo.Text = dato;
-        }
-
-        //Usuarios Main metod
-
-        private async void OnAgregarUsuarioClicked(object sender, EventArgs e)
-        {
-            var usuario = new Usuario
-            {
-                Nombre = NombreEntry.Text,
-                Contrasena = ContrasenaEntry.Text
-            };
-
-            var resultado = await AgregarUsuarioAsync(usuario);
-            await DisplayAlert("Se ha agregado un usuario", "Usuario agregado exitosamente", "OK");
-            NombreEntry.Text = string.Empty;
-            ContrasenaEntry.Text = string.Empty;
-        }
-
-        //Usuario util task
-        private async Task<bool> AgregarUsuarioAsync(Usuario usuario)
-        {
-            string url = $"{Vars_Globales.Uerel}/Usuarios";
-            using (HttpClient client = new HttpClient())
-            {
-                var json = JsonConvert.SerializeObject(usuario);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync(url, content);
-
-                return response.IsSuccessStatusCode;
             }
+            else
+            {
+                await DisplayAlert("Error", "Usuario o contraseña incorrectos", "OK");
+            }
+            
+        }
+
+        private async void gointoco(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new conf1gs());
+        }
+
+        private async void redire(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new DelivMood("hi"));
         }
     }
-
 }

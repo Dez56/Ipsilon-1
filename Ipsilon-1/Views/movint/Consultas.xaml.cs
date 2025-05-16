@@ -23,7 +23,7 @@ public partial class Consultas : ContentPage
 
     private void HideALLGs(string SelecLay)
     {
-        var layouts = new[] { "uno", "tua", "AgregarGrupoUser", "AgregarGrupoPaq", "EditarGrupoUser" };
+        var layouts = new[] { "uno", "tua", "AgregarGrupoUser", "AgregarGrupoPaq", "EditarGrupoUser", "EditarGrupoPaq" };
 
         foreach (var layoutName in layouts)
         {
@@ -125,9 +125,13 @@ public partial class Consultas : ContentPage
                     break;
             }
 
-            HidedIDPaq.Text = paquete.Id.ToString();
+            HideditIDPaq.Text = paquete.Id.ToString();
             HidedsaL.Text = paquete.HorSal.ToString("yyyy-MM-dd HH:mm"); // Formato editable
             HidedEnt.Text = paquete.HorEnt.HasValue ? paquete.HorEnt.Value.ToString("yyyy-MM-dd HH:mm") : string.Empty;
+
+            Paquid.Text = Convert.ToString(paquete.Repartidor);
+            Paqueter.Text = paquete.Codigo;
+            L2nk.Text = paquete.link;
 
         }
     }
@@ -179,6 +183,13 @@ public partial class Consultas : ContentPage
 
     private async void OnAgregarUsuarioClicked(object sender, EventArgs e)
     {
+
+        if (string.IsNullOrWhiteSpace(NombreEntry.Text) ||
+        string.IsNullOrWhiteSpace(ContrasenaEntry.Text))
+        {
+            await DisplayAlert("Error", "Falta uno o más campos", "OK");
+            return;
+        }
         var usuario = new Usuario
         {
             Nombre = NombreEntry.Text,
@@ -227,6 +238,18 @@ public partial class Consultas : ContentPage
         {
             RadiValor = 3;
         }
+        else
+        {
+            await DisplayAlert("Error", "Selecciona un estado", "OK");
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(repar.Text) ||
+        string.IsNullOrWhiteSpace(codig.Text) ||
+        string.IsNullOrWhiteSpace(l1nk.Text))
+        {
+            await DisplayAlert("Error", "Falta uno o más campos", "OK");
+        }
 
         var paquetes = new Paquete
         {
@@ -234,7 +257,8 @@ public partial class Consultas : ContentPage
             Codigo = codig.Text,
             Estado = RadiValor,
             HorSal = DateTime.Now, // Hora actual al crear el registro
-            HorEnt = null // Puede ser nulo
+            HorEnt = null, // Puede ser nulo
+            link = l1nk.Text
         };
 
         var resultado = await AgregarpaqueteAsync(paquetes);
@@ -284,6 +308,30 @@ public partial class Consultas : ContentPage
     }
 
     //Paquetes edit
+
+    private async void Packaginger(object sender, EventArgs e)
+    {
+        var paquete = new Paquete
+        {
+            Id = Convert.ToInt32(HideditIDPaq.Text),
+            Repartidor = Convert.ToInt32(Paquid.Text),
+            Codigo = Paqueter.Text,
+            HorSal = DateTime.Parse(HidedsaL.Text),
+            HorEnt = string.IsNullOrWhiteSpace(HidedEnt.Text) ? (DateTime?)null : DateTime.Parse(HidedEnt.Text),
+            Estado = tA0.IsChecked ? 0 : tA1.IsChecked ? 1 : tA2.IsChecked ? 2 : 3,
+            link = L2nk.Text
+        };
+        string url = $"{Vars_Globales.Uerel}Paquetes/{paquete.Id}"; // Endpoint de la API
+        using (HttpClient client = new HttpClient())
+        {
+            var json = JsonConvert.SerializeObject(paquete);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await client.PutAsync(url, content);
+            await DisplayAlert("Terminado", $"EL resultado de la operacion fue{response.IsSuccessStatusCode}", "OK");
+        }
+        HideALLGs("tua");
+        await leed();
+    }
 
     //Metodos de Eliminacion de registros
 

@@ -50,5 +50,7 @@ namespace Ipsilon_1.Models
         };
 
         public required string link { get; set; }
+
+
     }
 }

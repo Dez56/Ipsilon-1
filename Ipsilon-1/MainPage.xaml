@@ -1,74 +1,84 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Ipsilon_1.MainPage">
+             x:Class="Ipsilon_1.MainPage"
+             BackgroundColor="White">
 
     <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
-            <Image
-                Source="dotnet_bot.png"
-                HeightRequest="185"
-                Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a race car number eight" />
+        <Grid Padding="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-            <Label
-                Text="Retest"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
+            <ImageButton
+                CornerRadius="10"
+                x:Name="ButCfg"
+                Source="cfgim.svg"
+                Clicked="gointoco"
+                BackgroundColor="#E5007D"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                WidthRequest="48"
+                HeightRequest="48"
+                Grid.Row="0"
+                Grid.Column="0" />
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Https" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Fill" />
+            <VerticalStackLayout
+            Spacing="20"
+            Padding="20"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
 
-            <Button
-                x:Name="Navigate2"
-                Text="Get" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnNavigate2Clicked"
-                HorizontalOptions="Fill" />
+                
 
-            <Button
-                x:Name="huhu"
-                Text="Getshit" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="oh_no_abtn"
-                HorizontalOptions="Fill" />
+                <Frame 
+                CornerRadius="10" 
+                Padding="20"
+                Margin="20"
+                HasShadow="True"
+                WidthRequest="280"
+                VerticalOptions="Center">
 
-            <Label
-                x:Name="helo"
-                Text=""
-                Style="{StaticResource SubHeadline}"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
+                    <VerticalStackLayout Spacing="15">
+                        <Label 
+                        Text="Metodo Get"
+                        FontAttributes="Bold"
+                        FontSize="24"
+                        HorizontalOptions="Center" />
 
-            <!---   Formulario usuario   -->
+                        <Entry x:Name="NombreEntry" Placeholder="Usuario" />
+                        <Entry x:Name="ContrasenaEntry" Placeholder="Contraseña" IsPassword="True" />
 
-            <StackLayout x:Name="AgregarGrupoUser">
-                <Label Text="Agregar Nuevo Usuario" 
-           FontSize="Large" 
-           HorizontalOptions="Center" />
+                        <Button
+                        Text="Loggearse"
+                        Clicked="OnNavigateButtonClicked"
+                        HorizontalOptions="Fill"
+                        BackgroundColor="#E5007D"
+                        TextColor="White" />
+                        <Button x:Name="aa"
+                            Text="asadsa"
+                            Clicked="redire"
+                                IsVisible="True"/>
+                    </VerticalStackLayout>
+                </Frame>
+                <Label 
+                    Text="Es necesario crear una cuenta con su administrador antes de entrar"
+                    TextColor="Black"
+                    FontSize="12"
+                    LineBreakMode="WordWrap"
+                    HorizontalTextAlignment="Center"
+                    WidthRequest="200"/>        
 
-                <Entry x:Name="NombreEntry" 
-           Placeholder="Nombre" 
-           Margin="0,10" />
 
-                <Entry x:Name="ContrasenaEntry" 
-           Placeholder="Contraseña" 
-           IsPassword="True" 
-           Margin="0,10" />
-
-                <Button Text="Agregar Usuario" 
-            Clicked="OnAgregarUsuarioClicked" 
-            HorizontalOptions="Center" 
-            Margin="0,20" />
-            </StackLayout>
-
-        </VerticalStackLayout>
+                <Image 
+                Source="logus_niet.png"
+                HeightRequest="150"
+                HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </Grid>
     </ScrollView>
-
+    
 </ContentPage>

@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 using ZXing;
 using ZXing.Net.Maui;
 using ZXing.Net.Maui.Controls;
+using Ipsilon_1.fleshy;
+using Ipsilon_1.Models;
+using System.Text.Json;
+using System.Text;
 
 namespace Ipsilon_1;
 
@@ -25,6 +29,9 @@ public partial class MovileQr : ContentPage
 
     private void OnBarcodeDetected(object sender, BarcodeDetectionEventArgs e)
     {
+
+        //extraer link del qr
+
         if (scanningPaused) return;
 
         var First = e.Results?.FirstOrDefault();
@@ -38,30 +45,52 @@ public partial class MovileQr : ContentPage
         {
             var queryParams = System.Web.HttpUtility.ParseQueryString(uri.Query);
 
-            // Verificar si tiene todos los parámetros necesarios
             var folioFiscal = queryParams["id"];
-            var rfcEmisor = queryParams["re"];
-            var rfcReceptor = queryParams["rr"];
-            var total = queryParams["tt"];
-            var sello = queryParams["fe"];
 
-            if (!string.IsNullOrEmpty(folioFiscal) &&
-                !string.IsNullOrEmpty(rfcEmisor) &&
-                !string.IsNullOrEmpty(rfcReceptor) &&
-                !string.IsNullOrEmpty(total) &&
-                !string.IsNullOrEmpty(sello))
+            if (!string.IsNullOrEmpty(folioFiscal))
             {
                 scanningPaused = true;
 
                 Dispatcher.Dispatch(async () =>
                 {
-                    await DisplayAlert("QR válido", value, "OK");
+                    try
+                    {
+                        var httpClient = new HttpClient();
+                        var apiUrl = $"{Vars_Globales.Uerel}/Paquetes/BuscarPorCodigo/{folioFiscal}";
 
-                    // Ir a DelivMood pasando los datos
-                    await Navigation.PushAsync(new DelivMood(folioFiscal, rfcEmisor, rfcReceptor, total, sello));
+                        var response = await httpClient.GetAsync(apiUrl);
 
-                    scanningPaused = false;
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            // Crear paquete si no existe
+                            var nuevoPaquete = new Paquete
+                            {
+                                Repartidor = Vars_Globales.UeserID,
+                                Codigo = folioFiscal,
+                                Estado = 0,
+                                HorSal = DateTime.Now,
+                                link = value
+                            };
+
+                            var jsonToSend = JsonSerializer.Serialize(nuevoPaquete);
+                            var content = new StringContent(jsonToSend, Encoding.UTF8, "application/json");
+
+                            await httpClient.PostAsync($"{Vars_Globales.Uerel}/Paquetes", content);
+                        }
+
+                        // Pasar solo el folio fiscal a la siguiente página
+                        await Navigation.PushAsync(new DelivMood(folioFiscal));
+                    }
+                    catch (Exception ex)
+                    {
+                        await DisplayAlert("Error", ex.Message, "OK");
+                    }
+                    finally
+                    {
+                        scanningPaused = false;
+                    }
                 });
+
             }
         }
     }

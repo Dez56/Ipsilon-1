@@ -42,6 +42,19 @@ namespace Ipsilon_1A.Controllers
             return paquete;
         }
 
+        // GET: /Paquetes/BuscarPorCodigo/{codigo}
+        [HttpGet("BuscarPorCodigo/{codigo}")]
+        public async Task<ActionResult<Paquete>> BuscarPorCodigo(string codigo)
+        {
+            var paquete = await _context.Paquetes
+                .FirstOrDefaultAsync(p => p.Codigo == codigo);
+
+            if (paquete == null)
+                return NotFound();
+
+            return Ok(paquete);
+        }
+
         // PUT: api/Paquetes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
