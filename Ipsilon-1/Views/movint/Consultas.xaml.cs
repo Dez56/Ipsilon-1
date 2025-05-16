@@ -293,7 +293,7 @@ public partial class Consultas : ContentPage
             Contrasena = EditContrasenaEntry.Text
         };
 
-        string url = $"{Vars_Globales.Uerel}Usuarios/{usuario.Id}"; // Endpoint de la API
+        string url = $"{Vars_Globales.Uerel}/Usuarios/{usuario.Id}"; // Endpoint de la API
         using (HttpClient client = new HttpClient())
         {
             var json = JsonConvert.SerializeObject(usuario);
@@ -321,7 +321,7 @@ public partial class Consultas : ContentPage
             Estado = tA0.IsChecked ? 0 : tA1.IsChecked ? 1 : tA2.IsChecked ? 2 : 3,
             link = L2nk.Text
         };
-        string url = $"{Vars_Globales.Uerel}Paquetes/{paquete.Id}"; // Endpoint de la API
+        string url = $"{Vars_Globales.Uerel}/Paquetes/{paquete.Id}"; // Endpoint de la API
         using (HttpClient client = new HttpClient())
         {
             var json = JsonConvert.SerializeObject(paquete);

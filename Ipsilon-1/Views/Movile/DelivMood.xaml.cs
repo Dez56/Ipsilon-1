@@ -63,35 +63,52 @@ public partial class DelivMood : ContentPage
 
     public async Task BullshitGo (int stat)
     {
-        //este no deberia usarse nunca, es imposible que se llegue a usar, esta solo para que no salgan advertencias de que nulos y eso
-        if (Vars_Globales.pask == null)
+        try
         {
-            await DisplayAlert("Error", "El paquete no está inicializado", "OK");
-            return;
-        }
+            //este no deberia usarse nunca, es imposible que se llegue a usar, esta solo para que no salgan advertencias de que nulos y eso
+            if (Vars_Globales.pask == null)
+            {
+                await DisplayAlert("Error", "El paquete no está inicializado", "OK");
+                return;
+            }
 
-        var paquete = new Paquete
+            var paquete = new Paquete
+            {
+                Id = Vars_Globales.pask.Id,
+                Repartidor = Vars_Globales.UeserID,
+                Codigo = Vars_Globales.pask.Codigo,
+                HorSal = Vars_Globales.pask.HorSal,
+                HorEnt = stat == 1 ? DateTime.Now : null,
+                Estado = stat,
+                link = Vars_Globales.pask.link
+            };
+            string url = $"{Vars_Globales.Uerel}/Paquetes/{paquete.Id}";
+            using (HttpClient client = new HttpClient())
+            {
+                var json = JsonConvert.SerializeObject(paquete);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await client.PutAsync(url, content);
+                Vars_Globales.pask = null;
+                bool pisc = await DisplayAlert("Entregado", $"EL resultado de la operacion fue{response.IsSuccessStatusCode}", "Escanear nuevo paquete", "Cerar sesion");
+                if (pisc)
+                {
+                    await Navigation.PushAsync(new MovileQr());
+                }
+                else
+                {
+                    Vars_Globales.UeserID = 0;
+                    Vars_Globales.Nii = null;
+                    await Navigation.PopToRootAsync();
+                }
+            }
+        }
+        catch (Exception ex)
         {
-            Id = Vars_Globales.pask.Id,
-            Repartidor = Vars_Globales.UeserID,
-            Codigo = Vars_Globales.pask.Codigo,
-            HorSal = Vars_Globales.pask.HorSal,
-            HorEnt = stat == 1 ? DateTime.Now : null,
-            Estado = stat,
-            link = Vars_Globales.pask.link
-        };
-        string url = $"{Vars_Globales.Uerel}Paquetes/{paquete.Id}";
-        using (HttpClient client = new HttpClient())
-        {
-            var json = JsonConvert.SerializeObject(paquete);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await client.PutAsync(url, content);
-            Vars_Globales.pask = null;
-            await DisplayAlert("Entregado", $"EL resultado de la operacion fue{response.IsSuccessStatusCode}", "OK");
+            await DisplayAlert("Error", $"Error al actualizar el paquete: {ex.Message}", "OK");
         }
     }
 
-    private void OnSliderPanUpdated(object sender, PanUpdatedEventArgs e)
+    private async void OnSliderPanUpdated(object sender, PanUpdatedEventArgs e)
     {
         switch (e.StatusType)
         {
@@ -103,20 +120,44 @@ public partial class DelivMood : ContentPage
 
             case GestureStatus.Completed:
 
-                //derecha
                 if (translationX > 100)
                 {
-                    
-                    DisplayAlert("Acción", "Deslizaste a la DERECHA", "OK");
+                    bool delivv = await DisplayAlert("Estas Cerrando una entrega", "¿Estas seguro que estas entregando el paquete? si te equivocaste esta accion es irreversible", "Entregar", "Abortar");
+                    if (delivv)
+                    {
+                        await BullshitGo(1);
+                    }
+                    else
+                    {
+                        await SliderThumb.TranslateTo(0, 0, 150, Easing.CubicOut);
+                        translationX = 0;
+                    }
                 }
-                //izquierda
                 else if (translationX < -100)
                 {
-                    DisplayAlert("Acción", "Deslizaste a la IZQUIERDA", "OK");
+
+                    bool conf = await DisplayAlert("Estas Cerrando una entrega", "A punto de marcar un paquete como no entregado, esta accion si es reversible", "Si, eso hago", "Cancelar");
+                    if (conf)
+                    {
+                        bool Nivv = await DisplayAlert("Estas Cerrando una entrega", "¿Nadie recibio el paquete o has decidido cancelar la entrega?", "Nadie recibio", "Voy a cancelar la entrega");
+                        if (Nivv)
+                        {
+                            await BullshitGo(2);
+                        }
+                        else
+                        {
+                            await BullshitGo(3);
+                        }
+                    }
+                    else
+                    {
+                        await SliderThumb.TranslateTo(0, 0, 150, Easing.CubicOut);
+                        translationX = 0;
+                    }
                 }
 
                 //reseteo
-                SliderThumb.TranslateTo(0, 0, 150, Easing.CubicOut);
+                await SliderThumb.TranslateTo(0, 0, 150, Easing.CubicOut);
                 translationX = 0;
                 break;
         }

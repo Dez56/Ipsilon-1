@@ -60,9 +60,25 @@ public partial class MovileQr : ContentPage
 
                         var response = await httpClient.GetAsync(apiUrl);
 
+                        if (response.IsSuccessStatusCode)
+                        {
+                            // Deserializar el paquete recibido
+                            var jsonResponse = await response.Content.ReadAsStringAsync();
+                            var paqueteExistente = JsonSerializer.Deserialize<Paquete>(jsonResponse);
+
+                            if (paqueteExistente != null && paqueteExistente.Estado == 0)
+                            {
+                                await DisplayAlert("Aviso", $"Este paquete ya está en proceso, codigo:{folioFiscal}", "OK");
+                                scanningPaused = false;
+                                return;
+                            }else if (paqueteExistente != null && paqueteExistente.Estado == 0) {
+                                
+                            }
+                        }
+
+                        // Si no existe, crear paquete
                         if (!response.IsSuccessStatusCode)
                         {
-                            // Crear paquete si no existe
                             var nuevoPaquete = new Paquete
                             {
                                 Repartidor = Vars_Globales.UeserID,
@@ -84,10 +100,6 @@ public partial class MovileQr : ContentPage
                     catch (Exception ex)
                     {
                         await DisplayAlert("Error", ex.Message, "OK");
-                    }
-                    finally
-                    {
-                        scanningPaused = false;
                     }
                 });
 

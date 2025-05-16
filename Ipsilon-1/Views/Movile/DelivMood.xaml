@@ -36,6 +36,7 @@
                        HorizontalTextAlignment="End"
                        Grid.Row="0" Grid.Column="0" 
                        TextColor="Black"/>
+                
                 <Label Text=""
                        x:Name="Avaricia"
                        TextColor="#E5007D" 
@@ -45,7 +46,7 @@
                        HorizontalTextAlignment="Start"
                        Grid.Row="0" Grid.Column="1" />
 
-                <Label Text="Código de Paquete:" 
+                <Label Text="Numero de factura" 
                        FontAttributes="Bold" 
                        FontSize="31" 
                        HorizontalOptions="End"
