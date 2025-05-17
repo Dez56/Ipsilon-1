@@ -118,6 +118,28 @@ public partial class Consultas : ContentPage
         }
     }
 
+    //somethin'
+
+    private async void OnAbrirLinkClicked(object sender, EventArgs e)
+    {
+        if (sender is ImageButton btn && btn.CommandParameter is Paquete paquete)
+        {
+            bool confirm = await DisplayAlert("Link de Factura", "Estas saliendo en dirección a la pagina del sat para ver esta factura a dteale", "Así es", "cancelar");
+
+            if (confirm)
+            {
+                try
+                {
+                    await Launcher.Default.OpenAsync(new Uri(paquete.link));
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Error", $"No se pudo abrir el enlace: {ex.Message}", "OK");
+                }
+            }
+        }
+    }
+
     //Validacion y llamada a form de edicion de usuarios
     private async void OnSHEUsuarioClicked(object sender, EventArgs e)
     {

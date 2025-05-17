@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
 using Microsoft.Maui.Controls;
+using System.Diagnostics;
 
 public partial class DelivMood : ContentPage
 {
@@ -20,6 +21,33 @@ public partial class DelivMood : ContentPage
         Avaricia.Text = Vars_Globales.Nii;
     }
 
+    protected override async void OnSleep()
+    {
+        if (Vars_Globales.pask != null && Vars_Globales.pask.Estado == 0)
+        {
+            try
+            {
+                var paquete = Vars_Globales.pask;
+                paquete.Estado = 2;
+
+                string url = $"{Vars_Globales.Uerel}/Paquetes/{paquete.Id}";
+
+                using (HttpClient client = new HttpClient())
+                {
+                    var json = JsonConvert.SerializeObject(paquete);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    var response = await client.PutAsync(url, content);
+                }
+
+                Vars_Globales.pask = null;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error al cancelar paquete: {ex.Message}");
+            }
+        }
+    }
+
     protected override async void OnAppearing()
     {
         base.OnAppearing();
@@ -28,6 +56,7 @@ public partial class DelivMood : ContentPage
 
         if (Vars_Globales.pask != null)
         {
+            Vars_Globales.pask.HorSal = DateTime.Now;
             Mentiras.Text = Vars_Globales.pask.HorSal.ToString("HH:mm");
         }
         else

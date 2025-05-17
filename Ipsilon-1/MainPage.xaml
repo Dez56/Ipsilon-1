@@ -61,7 +61,7 @@
                         <Button x:Name="aa"
                             Text="asadsa"
                             Clicked="redire"
-                                IsVisible="True"/>
+                                IsVisible="False"/>
                     </VerticalStackLayout>
                 </Frame>
                 <Label 

@@ -170,6 +170,8 @@ HeightRequest="24"/>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="2" />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="2" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0" Text="Id" Style="{StaticResource HeaderAdd}" HorizontalTextAlignment="Center"/>
@@ -187,6 +189,8 @@ HeightRequest="24"/>
                     <Label Grid.Column="12" Text="Editar" Style="{StaticResource HeaderAdd}" HorizontalTextAlignment="Center"/>
                     <BoxView Grid.Column="13" BackgroundColor="Black" />
                     <Label Grid.Column="14" Text="Eliminar" Style="{StaticResource HeaderAdd}" HorizontalTextAlignment="Center"/>
+                    <BoxView Grid.Column="13" BackgroundColor="Black" />
+                    <Label Grid.Column="14" Text="Link" Style="{StaticResource HeaderAdd}" HorizontalTextAlignment="Center"/>
                 </Grid>
 
                 <CollectionView x:Name="sasas">
@@ -209,6 +213,8 @@ HeightRequest="24"/>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="2" />
                                     <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="2" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
                                 <Label Grid.Column="0" Text="{Binding Id}" Style="{StaticResource DataAdd}" />
@@ -226,6 +232,9 @@ HeightRequest="24"/>
                                 <ImageButton Grid.Column="12" Source="edit.png" WidthRequest="24" Clicked="OnEditarPaqueClicked" CommandParameter="{Binding}" />
                                 <BoxView Grid.Column="13" BackgroundColor="Black" />
                                 <ImageButton Grid.Column="14" Source="trash.png" WidthRequest="24" Clicked="OnEliminarPaqueClicked" CommandParameter="{Binding}" />
+                                <BoxView Grid.Column="15" BackgroundColor="Black" />
+                                <ImageButton Grid.Column="16" Source="link.png" WidthRequest="24" Clicked="OnAbrirLinkClicked" CommandParameter="{Binding}" />
+
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

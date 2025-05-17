@@ -15,6 +15,7 @@ namespace Ipsilon_1;
 public partial class MovileQr : ContentPage
 {
     private bool scanningPaused = false;
+
     public MovileQr()
     {
         InitializeComponent();
@@ -29,12 +30,10 @@ public partial class MovileQr : ContentPage
 
     private void OnBarcodeDetected(object sender, BarcodeDetectionEventArgs e)
     {
-        if (scanningPaused) return;
+        if (scanningPaused || e?.Results?.FirstOrDefault() == null)
+            return;
 
-        var First = e.Results?.FirstOrDefault();
-        if (First == null) return;
-
-        var value = First.Value;
+        var value = e.Results.First().Value;
 
         if (Uri.TryCreate(value, UriKind.Absolute, out var uri)
             && uri.Host.Contains("facturaelectronica.sat.gob.mx"))
@@ -45,6 +44,9 @@ public partial class MovileQr : ContentPage
             if (!string.IsNullOrEmpty(folioFiscal))
             {
                 scanningPaused = true;
+
+                // ?? Detener escaneo desconectando el evento
+                BarcodeReader.BarcodesDetected -= OnBarcodeDetected;
 
                 Dispatcher.Dispatch(async () =>
                 {
@@ -58,12 +60,7 @@ public partial class MovileQr : ContentPage
                         if (response.IsSuccessStatusCode)
                         {
                             var jsonResponse = await response.Content.ReadAsStringAsync();
-
-                            var options = new JsonSerializerOptions
-                            {
-                                PropertyNameCaseInsensitive = true
-                            };
-
+                            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                             var paqueteExistente = JsonSerializer.Deserialize<Paquete>(jsonResponse, options);
 
                             if (paqueteExistente != null)
@@ -82,7 +79,6 @@ public partial class MovileQr : ContentPage
                         }
                         else
                         {
-                            // Crear paquete si no existe
                             var nuevoPaquete = new Paquete
                             {
                                 Repártidor = Vars_Globales.UeserID,
@@ -98,7 +94,6 @@ public partial class MovileQr : ContentPage
                             await httpClient.PostAsync($"{Vars_Globales.Uerel}/Paquetes", content);
                         }
 
-                        // Ir a pantalla de entrega
                         await Navigation.PushAsync(new DelivMood(folioFiscal));
                     }
                     catch (Exception ex)
@@ -108,6 +103,9 @@ public partial class MovileQr : ContentPage
                     finally
                     {
                         scanningPaused = false;
+
+                        // ?? Reactivar escaneo reconectando el evento
+                        BarcodeReader.BarcodesDetected += OnBarcodeDetected;
                     }
                 });
             }
