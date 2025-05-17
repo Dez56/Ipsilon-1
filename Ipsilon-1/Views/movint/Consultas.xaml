@@ -178,7 +178,7 @@ HeightRequest="24"/>
                     <BoxView Grid.Column="1" BackgroundColor="Black" />
                     <Label Grid.Column="2" Text="Repartidor" Style="{StaticResource HeaderAdd}" HorizontalTextAlignment="Center"/>
                     <BoxView Grid.Column="3" BackgroundColor="Black" />
-                    <Label Grid.Column="4" Text="Codigo de paquete" Style="{StaticResource HeaderAdd}" HorizontalTextAlignment="Center"/>
+                    <Label Grid.Column="4" Text="Numero de factura" Style="{StaticResource HeaderAdd}" HorizontalTextAlignment="Center"/>
                     <BoxView Grid.Column="5" BackgroundColor="Black" />
                     <Label Grid.Column="6" Text="Estado de entrega" Style="{StaticResource HeaderAdd}" HorizontalTextAlignment="Center"/>
                     <BoxView Grid.Column="7" BackgroundColor="Black" />
