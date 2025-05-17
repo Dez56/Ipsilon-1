@@ -21,32 +21,31 @@ public partial class DelivMood : ContentPage
         Avaricia.Text = Vars_Globales.Nii;
     }
 
-    protected override async void OnSleep()
+    protected override async void OnDisappearing()
     {
+        base.OnDisappearing();
+
         if (Vars_Globales.pask != null && Vars_Globales.pask.Estado == 0)
         {
-            try
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
-                var paquete = Vars_Globales.pask;
-                paquete.Estado = 2;
-
-                string url = $"{Vars_Globales.Uerel}/Paquetes/{paquete.Id}";
-
+                Vars_Globales.pask.Estado = 2;
+                string url = $"{Vars_Globales.Uerel}/Paquetes/{Vars_Globales.pask.Id}";
                 using (HttpClient client = new HttpClient())
                 {
-                    var json = JsonConvert.SerializeObject(paquete);
+                    var json = JsonConvert.SerializeObject(Vars_Globales.pask);
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
-                    var response = await client.PutAsync(url, content);
+                    await client.PutAsync(url, content);
                 }
-
                 Vars_Globales.pask = null;
             }
-            catch (Exception ex)
+            else
             {
-                Debug.WriteLine($"Error al cancelar paquete: {ex.Message}");
+                await DisplayAlert("Sin conexión", "No se pudo marcar como no entregado por falta de internet.", "OK");
             }
         }
     }
+
 
     protected override async void OnAppearing()
     {
@@ -90,14 +89,21 @@ public partial class DelivMood : ContentPage
         }
     }
 
-    public async Task BullshitGo (int stat)
+    public async Task BullshitGo(int stat)
     {
         try
         {
-            //este no deberia usarse nunca, es imposible que se llegue a usar, esta solo para que no salgan advertencias de que nulos y eso
             if (Vars_Globales.pask == null)
             {
                 await DisplayAlert("Error", "El paquete no está inicializado", "OK");
+                return;
+            }
+
+            // Detecta conexión a Internet
+            var access = Connectivity.NetworkAccess;
+            if (access != NetworkAccess.Internet)
+            {
+                await DisplayAlert("Sin conexión", "No hay conexión a internet. Por favor, no cierres la app e intenta nuevamente cuando se restablezca.", "OK");
                 return;
             }
 
@@ -111,14 +117,18 @@ public partial class DelivMood : ContentPage
                 Estado = stat,
                 link = Vars_Globales.pask.link
             };
+
             string url = $"{Vars_Globales.Uerel}/Paquetes/{paquete.Id}";
+
             using (HttpClient client = new HttpClient())
             {
                 var json = JsonConvert.SerializeObject(paquete);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await client.PutAsync(url, content);
+
                 Vars_Globales.pask = null;
-                bool pisc = await DisplayAlert("Entregado", $"EL resultado de la operacion fue{response.IsSuccessStatusCode}", "Escanear nuevo paquete", "Cerar sesion");
+
+                bool pisc = await DisplayAlert("Entregado", $"El resultado de la operación fue: {response.IsSuccessStatusCode}", "Escanear nuevo paquete", "Cerrar sesión");
                 if (pisc)
                 {
                     await Navigation.PushAsync(new MovileQr());
@@ -130,14 +140,13 @@ public partial class DelivMood : ContentPage
                     await Navigation.PopToRootAsync();
                 }
             }
-            
-            
         }
         catch (Exception ex)
         {
             await DisplayAlert("Error", $"Error al actualizar el paquete: {ex.Message}", "OK");
         }
     }
+
 
     private async void OnSliderPanUpdated(object sender, PanUpdatedEventArgs e)
     {
