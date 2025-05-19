@@ -473,7 +473,7 @@ public partial class Consultas : ContentPage
 
                     if (response.IsSuccessStatusCode)
                     {
-                        await DisplayAlert("Usuario Eliminado", $"El usuario {paque.Codigo} ha sido eliminado.", "OK");
+                        await DisplayAlert("Usuario Eliminado", $"El paquete {paque.Codigo} ha sido eliminado.", "OK");
 
                         // Recargar la tabla de usuarios
                         await leed();
