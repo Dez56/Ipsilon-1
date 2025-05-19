@@ -60,7 +60,7 @@ public partial class DelivMood : ContentPage
         }
         else
         {
-            await DisplayAlert("Error", "No se obtuvo la información del paquete", "OK");
+            await DisplayAlert("Error", "No se encontro el paquete", "OK");
             await Navigation.PopAsync();
         }
     }
@@ -79,7 +79,7 @@ public partial class DelivMood : ContentPage
                 Vars_Globales.pask = paquete;
             }
             else {
-                await DisplayAlert("Error", "Error insesperado", "OK");
+                await DisplayAlert("Error", "Error insesperado, intente despues", "OK");
                 await Navigation.PopAsync();
             }
         } else
@@ -95,7 +95,7 @@ public partial class DelivMood : ContentPage
         {
             if (Vars_Globales.pask == null)
             {
-                await DisplayAlert("Error", "El paquete no está inicializado", "OK");
+                await DisplayAlert("Error", "No se encontro el paquete", "OK");
                 return;
             }
 
@@ -103,7 +103,7 @@ public partial class DelivMood : ContentPage
             var access = Connectivity.NetworkAccess;
             if (access != NetworkAccess.Internet)
             {
-                await DisplayAlert("Sin conexión", "No hay conexión a internet. Por favor, no cierres la app e intenta nuevamente cuando se restablezca.", "OK");
+                await DisplayAlert("Sin conexión", "No hay conexión a internet intente de nuevo más tarde", "OK");
                 return;
             }
 
@@ -128,7 +128,7 @@ public partial class DelivMood : ContentPage
 
                 Vars_Globales.pask = null;
 
-                bool pisc = await DisplayAlert("Entregado", $"El resultado de la operación fue: {response.IsSuccessStatusCode}", "Escanear nuevo paquete", "Cerrar sesión");
+                bool pisc = await DisplayAlert("Entregado", $"Se ha terminado la entrega", "Escanear nuevo paquete", "Cerrar sesión");
                 if (pisc)
                 {
                     await Navigation.PushAsync(new MovileQr());

@@ -285,6 +285,7 @@ public partial class Consultas : ContentPage
     {
         var RadiValor = 0;
 
+
         if (RA0.IsChecked)
         {
             RadiValor = 0;
@@ -319,20 +320,39 @@ public partial class Consultas : ContentPage
             Repártidor = Convert.ToInt32(repar.Text),
             Codigo = codig.Text,
             Estado = RadiValor,
-            HorSal = DateTime.Now, // Hora actual al crear el registro
-            HorEnt = null, // Puede ser nulo
+            HorSal = DateTime.Now,
+            HorEnt = RadiValor == 1 ? DateTime.Now : null,
             link = l1nk.Text
         };
 
         var resultado = await AgregarpaqueteAsync(paquetes);
-        Resultado.Text = resultado ? "Paquete agregado exitosamente" : "Error al agregar paquete";
+        await DisplayAlert("Alerta", "Registro Agregadó", "ok");
+        repar.Text = "";
+        codig.Text = "";
+        l1nk.Text = "";
+        switch (RadiValor)
+        {
+            case 0:
+                RA0.IsChecked = false;
+                break;
+            case 1:
+                RA1.IsChecked = false;
+                break;
+            case 2:
+                RA2.IsChecked = false;
+                break;
+            case 3:
+                RA3.IsChecked = false;
+                break;
+        }
+
     }
 
     //Paquetes util task
 
     private async Task<bool> AgregarpaqueteAsync(Paquete Paquete)
     {
-        string url = $"{Vars_Globales.Uerel}Paquetes";
+        string url = $"{Vars_Globales.Uerel}/Paquetes";
         using (HttpClient client = new HttpClient())
         {
             var json = JsonConvert.SerializeObject(Paquete);
@@ -356,7 +376,7 @@ public partial class Consultas : ContentPage
             Contrasena = EditContrasenaEntry.Text
         };
 
-        string url = $"{Vars_Globales.Uerel}/Usuarios/{usuario.Id}"; // Endpoint de la API
+        string url = $"{Vars_Globales.Uerel}/Usuarios/{usuario.Id}"; 
         using (HttpClient client = new HttpClient())
         {
             var json = JsonConvert.SerializeObject(usuario);
@@ -364,9 +384,10 @@ public partial class Consultas : ContentPage
 
             var response = await client.PutAsync(url, content);
 
-            await DisplayAlert("Terminado", $"EL resultado de la operacion fue{response.IsSuccessStatusCode}", "OK");
+            await DisplayAlert("Terminado", "El usuario se ha modificado correctamente.", "OK");
         }
 
+        HideALLGs("uno");
         await Load();
     }
 
@@ -390,7 +411,7 @@ public partial class Consultas : ContentPage
             var json = JsonConvert.SerializeObject(paquete);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await client.PutAsync(url, content);
-            await DisplayAlert("Terminado", $"EL resultado de la operacion fue{response.IsSuccessStatusCode}", "OK");
+            await DisplayAlert("Terminado", $"El paquete {Paqueter.Text}", "OK");
         }
         HideALLGs("tua");
         await leed();
