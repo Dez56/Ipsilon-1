@@ -21,7 +21,9 @@ public partial class Consultas : ContentPage
     public Consultas()
 	{
 		InitializeComponent();
-        
+        currentPage = Preferences.Get("paginaUsuarios", 0);
+        currentPagePaquetes = Preferences.Get("paginaPaquetes", 0);
+
     }
 
     /* Botones reveladores de forms */
@@ -48,21 +50,24 @@ public partial class Consultas : ContentPage
     private async void OnNextPageClicked(object sender, EventArgs e)
     {
         currentPage++;
+        Preferences.Set("paginaUsuarios", currentPage); 
         await Load();
     }
 
     private async void OnPreviousPageClicked(object sender, EventArgs e)
     {
         if (currentPage > 0)
+        {
             currentPage--;
-        await Load();
+            Preferences.Set("paginaUsuarios", currentPage); 
+            await Load();
+        }
     }
-
-    //botones sigus paquae
 
     private async void OnSiguientePaqueteClicked(object sender, EventArgs e)
     {
         currentPagePaquetes++;
+        Preferences.Set("paginaPaquetes", currentPagePaquetes);
         await leed();
     }
 
@@ -71,6 +76,7 @@ public partial class Consultas : ContentPage
         if (currentPagePaquetes > 0)
         {
             currentPagePaquetes--;
+            Preferences.Set("paginaPaquetes", currentPagePaquetes); 
             await leed();
         }
     }
